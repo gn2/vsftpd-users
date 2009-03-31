@@ -1,0 +1,48 @@
+#content {
+  padding: 2em 3em; }
+  #content p, #content span {
+    font-size: 1.3em; }
+
+#central_box {
+  margin: 10em auto 2em auto;
+  padding: 2em;
+  width: 500px;
+  border: 2px dashed #ccccff; }
+  #central_box h2 {
+    margin-bottom: 1.5em; }
+  #central_box .form_holder {
+    width: 440px;
+    margin: auto; }
+    #central_box .form_holder p {
+      margin: 1em 0; }
+      #central_box .form_holder p span {
+        display: block; }
+        #central_box .form_holder p span label {
+          margin-bottom: 0.1em; }
+        #central_box .form_holder p span input {
+          height: 1.2em;
+          width: 428px;
+          font-size: 1em;
+          padding: 0.2em;
+          margin-bottom: 1em;
+          border: 2px solid #ccccff;
+          background: #2e2e2e;
+          color: #ccccff; }
+          #central_box .form_holder p span input:hover, #central_box .form_holder p span input:focus {
+            border: 2px solid #ddb0de;
+            background: #4e4e4e; }
+
+p.submit input {
+  padding: 0.5em;
+  font-size: 1.2em;
+  border: 2px solid #ccccff;
+  background: #2e2e2e;
+  color: #ccccff; }
+  p.submit input:hover, p.submit input:focus {
+    color: #ddb0de;
+    border: 2px solid #ddb0de; }
+
+p span.key {
+  color: #ccccff;
+  width: 200px;
+  float: left; }

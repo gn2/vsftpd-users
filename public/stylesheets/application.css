@@ -1,0 +1,93 @@
+* {
+  margin: 0;
+  padding: 0; }
+
+body {
+  background: #181818;
+  font-family: Myriad, "Myriad Pro";
+  color: #efefef;
+  font-size: 62.5%; }
+
+a, a:link, a:visited {
+  color: #ccccff; }
+
+a:hover {
+  color: #ddb0de;
+  text-decoration: none; }
+
+h1, h2, h3 {
+  font-weight: normal;
+  color: #ccccff; }
+
+h1 {
+  font-size: 2.8em; }
+
+h2 {
+  background: #2e2e2e;
+  padding: 0.3em 0.3em 0.1em 0.3em;
+  font-size: 2.8em; }
+  h2.page_title {
+    margin-bottom: 1em; }
+
+h3 {
+  background: #2e2e2e;
+  padding: 0.3em 0.3em 0.1em 0.3em;
+  font-size: 2.2em; }
+  h3.subtitle {
+    margin: 1em 0; }
+
+#header {
+  height: 1.5em;
+  padding: 1em;
+  background: #2e2e2e;
+  border-bottom: 2px dashed #ccccff; }
+  #header h1.title {
+    font-size: 1.6em;
+    float: left;
+    width: 20%; }
+    #header h1.title a {
+      text-decoration: none; }
+    #header h1.title a:hover {
+      text-decoration: underline; }
+  #header .message {
+    float: left;
+    background: #ccccff;
+    color: #2e2e2e;
+    width: 55%;
+    margin: -3px auto 0 auto;
+    font-size: 1.4em;
+    padding: 3px 5px 1px 5px; }
+  #header .menu {
+    text-align: right;
+    width: 20%;
+    float: right;
+    font-size: 1.2em; }
+    #header .menu .name {
+      margin-right: 10px; }
+
+.fieldWithErrors {
+  color: #ff0000; }
+  .fieldWithErrors input, .fieldWithErrors input:hover, .fieldWithErrors input:focus {
+    border: 2px solid #ff0000; }
+
+#errorExplanation {
+  width: 400px;
+  border: 2px solid red;
+  padding: 7px;
+  padding-bottom: 12px;
+  margin-bottom: 20px; }
+  #errorExplanation h2 {
+    text-align: left;
+    font-weight: bold;
+    padding: 5px 5px 5px 15px;
+    font-size: 12px;
+    margin: -7px;
+    background-color: #c00;
+    color: #fff; }
+  #errorExplanation p {
+    color: #333;
+    margin-bottom: 0;
+    padding: 5px; }
+  #errorExplanation ul li {
+    font-size: 12px;
+    list-style: square; }

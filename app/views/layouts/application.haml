@@ -1,0 +1,23 @@
+!!!
+%html{:xmlns => "http://www.w3.org/1999/xhtml", "xml:lang".to_sym  => "en", :lang => "en"}
+  %head
+    %title VSFTPD Administration console
+    = stylesheet_link_tag 'application', 'content', :media => :screen
+  %body
+    #header
+      %h1.title= link_to("VSFTPD Administration console", root_path)  
+    
+      - if !flash[:notice].blank?
+        .message
+          = flash[:notice]
+      
+      .menu
+        - if !current_user
+          = link_to("Register", new_account_path)  
+        - else
+          %span.name= japanese_greeting(current_user.name)
+          = link_to("My Account", account_path) + " | "
+          = link_to("Logout", user_session_path, :method => :delete, :confirm => "Are you sure you want to logout?")
+
+    #content
+      = yield

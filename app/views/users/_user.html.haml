@@ -1,0 +1,34 @@
+%div[user]
+  %p.name
+    %strong Name
+    = h user.name
+  %p.email
+    %strong Email
+    = h user.email
+  %p.crypted_password
+    %strong Crypted password
+    = h user.crypted_password
+  %p.salt
+    %strong Salt
+    = h user.salt
+  %p.state
+    %strong State
+    = h user.state
+  %p.company_id
+    %strong Company
+    = h user.company_id
+  %p.created_at
+    %strong Created at
+    = h user.created_at
+  %p.updated_at
+    %strong Updated at
+    = h user.updated_at
+  %p.deleted_at
+    %strong Deleted at
+    = h user.deleted_at
+
+  = link_to 'Show', object_path(user)
+  |
+  = link_to 'Edit', edit_object_path(user)
+  |
+  = link_to 'Destroy', object_path(user), :confirm => 'Really destroy user?', :method => :delete

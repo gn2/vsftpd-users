@@ -1,0 +1,103 @@
+!blue = #ccccff
+!pink = #ddb0de
+!lighter_bg_gray = #4e4e4e
+!light_bg_gray = #2e2e2e
+!bg_gray = #181818
+!red = red
+
+*
+  :margin 0
+  :padding 0
+
+body
+  :background= !bg_gray
+  :font-family Myriad, "Myriad Pro"
+  :color #efefef
+  :font-size 62.5%
+
+a, a:link, a:visited
+  :color= !blue
+a:hover
+  :color= !pink
+  :text-decoration none
+
+h1, h2, h3
+  :font-weight normal
+  :color= !blue
+h1
+  :font-size 2.8em
+h2
+  :background= !light_bg_gray
+  :padding 0.3em 0.3em 0.1em 0.3em
+  :font-size 2.8em
+  &.page_title
+    :margin-bottom 1em
+h3
+  :background= !light_bg_gray
+  :padding 0.3em 0.3em 0.1em 0.3em
+  :font-size 2.2em
+  &.subtitle
+    :margin 1em 0
+
+#header
+  :height 1.5em
+  :padding 1em
+  :background= !light_bg_gray
+  :border-bottom= 2px dashed !blue
+  h1.title
+    :font-size 1.6em
+    :float left
+    :width 20%
+    a
+      :text-decoration none
+    a:hover
+      :text-decoration underline
+  .message
+    :float left
+    :background= !blue
+    :color= !light_bg_gray
+    :width 55%
+    :margin -3px auto 0 auto
+    :font-size 1.4em
+    :padding 3px 5px 1px 5px
+  .menu
+    :text-align right
+    :width 20%
+    :float right
+    :font-size 1.2em
+    .name
+      :margin-right 10px
+
+
+
+// Error handling
+.fieldWithErrors
+  :color= !red
+  input, input:hover, input:focus
+    :border= 2px solid !red
+
+#errorExplanation
+  :width 400px
+  :border 2px solid red
+  :padding 7px
+  :padding-bottom 12px
+  :margin-bottom 20px
+
+  h2
+    :text-align left
+    :font-weight bold
+    :padding 5px 5px 5px 15px
+    :font-size 12px
+    :margin -7px
+    :background-color #c00
+    :color #fff
+
+  p
+    :color #333
+    :margin-bottom 0
+    :padding 5px
+
+  ul li
+    :font-size 12px
+    :list-style square
+

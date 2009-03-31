@@ -1,0 +1,21 @@
+#central_box
+  %h2 Indentification
+
+  .form_holder
+    - form_for @user_session, :url => user_session_path do |f|
+      %div= f.error_messages
+  
+      %p
+        %span.label= f.label :login
+        %span.input= f.text_field :login
+
+      %p
+        %span.label= f.label :password
+        %span.input= f.password_field :password
+  
+      %p.remember
+        %span
+          = f.check_box :remember_me
+          = f.label :remember_me
+  
+      %p.submit= f.submit "Send your credentials"
