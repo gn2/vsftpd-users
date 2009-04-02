@@ -1,0 +1,14 @@
+one:
+  id: 1
+  name: MyString
+  ip_address: MyString
+  description: MyText
+  crated_at: 2009-04-02 22:50:40
+  updated_at: 2009-04-02 22:50:40
+two:
+  id: 2
+  name: MyString
+  ip_address: MyString
+  description: MyText
+  crated_at: 2009-04-02 22:50:40
+  updated_at: 2009-04-02 22:50:40

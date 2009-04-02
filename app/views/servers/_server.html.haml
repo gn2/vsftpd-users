@@ -1,0 +1,22 @@
+%div[server]
+  %p.name
+    %strong Name
+    = h server.name
+  %p.ip_address
+    %strong Ip address
+    = h server.ip_address
+  %p.description
+    %strong Description
+    = h server.description
+  %p.crated_at
+    %strong Crated at
+    = h server.crated_at
+  %p.updated_at
+    %strong Updated at
+    = h server.updated_at
+
+  = link_to 'Show', object_path(server)
+  |
+  = link_to 'Edit', edit_object_path(server)
+  |
+  = link_to 'Destroy', object_path(server), :confirm => 'Really destroy server?', :method => :delete

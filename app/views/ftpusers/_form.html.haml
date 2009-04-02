@@ -1,0 +1,12 @@
+%p
+  %label{:for => "ftpuser_login"} Login:
+  = f.text_field :login
+%p
+  %label{:for => "ftpuser_password"} Password:
+  = f.text_field :password
+%p
+  %label{:for => "ftpuser_created_at"} Created at:
+  = f.datetime_select :created_at
+%p
+  %label{:for => "ftpuser_udpated_at"} Udpated at:
+  = f.datetime_select :udpated_at

@@ -1,0 +1,19 @@
+%div[ftpuser]
+  %p.login
+    %strong Login
+    = h ftpuser.login
+  %p.password
+    %strong Password
+    = h ftpuser.password
+  %p.created_at
+    %strong Created at
+    = h ftpuser.created_at
+  %p.udpated_at
+    %strong Udpated at
+    = h ftpuser.udpated_at
+
+  = link_to 'Show', object_path(ftpuser)
+  |
+  = link_to 'Edit', edit_object_path(ftpuser)
+  |
+  = link_to 'Destroy', object_path(ftpuser), :confirm => 'Really destroy ftpuser?', :method => :delete

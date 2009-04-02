@@ -1,6 +1,5 @@
-class User < ActiveRecord::Base
+class Ftpuser < ActiveRecord::Base
   include AASM
-  acts_as_authentic
   is_paranoid
   
   aasm_column :state
@@ -12,5 +11,5 @@ class User < ActiveRecord::Base
   aasm_state :banned
   aasm_state :deleted
   
-  has_many :ftp_users
+  belongs_to :server
 end
