@@ -12,4 +12,5 @@ class Ftpuser < ActiveRecord::Base
   aasm_state :deleted
   
   belongs_to :server
+  belongs_to :user
 end

@@ -12,6 +12,7 @@ User.blueprint do
   email       { Sham.email } 
 end
 
-User.blueprint do
-  state       { "active"}
+User.blueprint(:with_password) do
+  password { "123456abcDE" } 
+  password_confirmation { "123456abcDE" } 
 end

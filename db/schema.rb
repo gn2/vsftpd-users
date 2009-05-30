@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(:version => 20090402215040) do
     t.string   "name"
     t.string   "ip_address"
     t.text     "description"
-    t.datetime "crated_at"
+    t.datetime "created_at"
     t.datetime "updated_at"
   end
 

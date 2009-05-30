@@ -4,7 +4,7 @@ class CreateServers < ActiveRecord::Migration
       t.column :name, :string
       t.column :ip_address, :string
       t.column :description, :text
-      t.column :crated_at, :datetime
+      t.column :created_at, :datetime
       t.column :updated_at, :datetime
     end
   end
