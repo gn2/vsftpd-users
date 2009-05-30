@@ -7,4 +7,4 @@ It relies on the fact you are using pam-mysql to authenticate on you vsftpd serv
 vsftpd: http://vsftpd.beasts.org/
 pam-mysql: http://pam-mysql.sourceforge.net/
 
-Copyright (c) 2009 Adrien (adrien[at]gn2[dot]fr), released under the GPLv3 license
+Copyright (c) 2009 Adrien (adrien[at]gn2[dot]fr), released under the GPLv3 licence
