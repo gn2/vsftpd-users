@@ -5,11 +5,11 @@
 body {
   background: #181818;
   font-family: Myriad, "Myriad Pro";
-  color: #efefef;
+  color: #D5D5D5;
   font-size: 62.5%; }
 
 a, a:link, a:visited {
-  color: #ccccff; }
+  color: #00c0ff; }
 
 a:hover {
   color: #ddb0de;
@@ -17,7 +17,7 @@ a:hover {
 
 h1, h2, h3 {
   font-weight: normal;
-  color: #ccccff; }
+  color: #00c0ff; }
 
 h1 {
   background: #2e2e2e;
@@ -40,7 +40,7 @@ h3 {
     margin: 1em 0; }
 
 .error {
-  color: #ff0000; }
+  color: red; }
 
 .smiley {
   font-size: 100px;
@@ -52,7 +52,7 @@ h3 {
   height: 1.5em;
   padding: 1em;
   background: #2e2e2e;
-  border-bottom: 2px dashed #ccccff; }
+  border-bottom: 2px dashed #00c0ff; }
   #header h1.title {
     font-size: 1.6em;
     float: left;
@@ -64,7 +64,7 @@ h3 {
       text-decoration: underline; }
   #header .message {
     float: left;
-    background: #ccccff;
+    background: #00c0ff;
     color: #2e2e2e;
     width: 55%;
     margin: -3px auto 0 auto;
@@ -79,9 +79,9 @@ h3 {
       margin-right: 10px; }
 
 .fieldWithErrors {
-  color: #ff0000; }
+  color: red; }
   .fieldWithErrors input, .fieldWithErrors input:hover, .fieldWithErrors input:focus {
-    border: 2px solid #ff0000; }
+    border: 2px solid red; }
 
 #errorExplanation {
   width: 400px;

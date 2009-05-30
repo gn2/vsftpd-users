@@ -7,7 +7,7 @@
   margin: 10em auto 2em auto;
   padding: 2em;
   width: 500px;
-  border: 2px dashed #ccccff; }
+  border: 2px dashed #00c0ff; }
   #central_box h2 {
     margin-bottom: 1.5em; }
   #central_box .form_holder {
@@ -25,9 +25,9 @@
           font-size: 1em;
           padding: 0.2em;
           margin-bottom: 1em;
-          border: 2px solid #ccccff;
+          border: 2px solid #00c0ff;
           background: #2e2e2e;
-          color: #ccccff; }
+          color: #00c0ff; }
           #central_box .form_holder p span input:hover, #central_box .form_holder p span input:focus {
             border: 2px solid #ddb0de;
             background: #4e4e4e; }
@@ -35,14 +35,14 @@
 p.submit input {
   padding: 0.5em;
   font-size: 1.2em;
-  border: 2px solid #ccccff;
+  border: 2px solid #00c0ff;
   background: #2e2e2e;
-  color: #ccccff; }
+  color: #00c0ff; }
   p.submit input:hover, p.submit input:focus {
     color: #ddb0de;
     border: 2px solid #ddb0de; }
 
 p span.key {
-  color: #ccccff;
+  color: #00c0ff;
   width: 200px;
   float: left; }

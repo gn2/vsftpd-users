@@ -9,7 +9,7 @@ class StaticController < ApplicationController
   end
   
   private
-  def static_page_exists? page
-    FileTest.exists?(File.join(RAILS_ROOT, *%w[ app views static "#{page}" ]))
+  def static_page_exists?(page)
+    FileTest.exists?(File.join(RAILS_ROOT, %w[ app views static ], "#{page}.html.haml"))
   end
 end
