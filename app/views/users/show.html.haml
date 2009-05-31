@@ -1,13 +1,23 @@
-%h2.page_title My Account
-
+%h2.page_title 
+  My Account
+  %span= link_to "Edit my account", edit_user_path(current_object)
 %p
   %span.key Login: 
-  %span.value= h @user.login
+  %span.value= h current_object.login
 %p
   %span.key Name: 
-  %span.value= h @user.name
+  %span.value= h current_object.name
 %p
   %span.key Contact email:
-  %span.value= h @user.email
+  %span.value= h current_object.email
+%p 
+  %span.key Last login:
+  %span.value= h current_object.last_login_at.strftime("%d/%m/%Y at %H:%M") if !current_object.last_login_at.nil?
+%p 
+  %span.key Last login IP:
+  %span.value= h current_object.last_login_ip if !current_object.last_login_ip.nil?
 
-/ %h3.subtitle FTP accounts
+%h3.subtitle
+  My FTP accounts
+  -if current_object.is_admin?
+    %span= link_to "Browse all FTP accounts", ftpusers_path

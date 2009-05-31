@@ -2,7 +2,7 @@
   %h2 Register
 
   .form_holder
-    - form_for(@user, :url => account_path) do |f|
+    - form_for(current_object, :url => account_path) do |f|
       = f.error_messages
       = render :partial => "form", :locals => {:f => f}
       %p.submit= submit_tag "Register"

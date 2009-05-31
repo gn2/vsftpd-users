@@ -1,11 +1,12 @@
-%h1 Editing user
+%h2.page_title 
+  Editing my account
+  %span= link_to "Back to my account", user_path(current_object)
 
-= error_messages_for :user
+.form_holder
+  = error_messages_for :user
 
-- form_for(:user, :url => object_url, :html => { :method => :put }) do |f|
-  = render :partial => "form", :locals => {:f => f}
-  %p= submit_tag "Update"
-
-= link_to 'Show', object_path
-|
-= link_to 'Back', objects_path
+  - form_for(current_object, :url => object_url, :html => { :method => :put }) do |f|
+    = render :partial => "form", :locals => {:f => f}
+    %p.submit
+      = submit_tag("Update my info")
+      = link_to("Cancel", user_path(current_object), :class => "alternative_button")

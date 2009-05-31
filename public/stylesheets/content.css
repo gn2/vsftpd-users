@@ -2,6 +2,16 @@
   padding: 2em 3em; }
   #content p, #content span {
     font-size: 1.3em; }
+  #content h2 span, #content h3 span {
+    position: absolute;
+    top: 0.85em;
+    right: 0.7em;
+    font-size: 0.5em;
+    padding: 0.2em 0.4em 0.1em 0.4em;
+    background: #4e4e4e; }
+  #content h3 span {
+    top: 0.65em;
+    font-size: 0.6em; }
 
 #central_box {
   margin: 10em auto 2em auto;
@@ -32,17 +42,54 @@
             border: 2px solid #ddb0de;
             background: #4e4e4e; }
 
+.form_holder {
+  width: 440px;
+  margin: auto; }
+  .form_holder p {
+    margin: 1em 0; }
+    .form_holder p span {
+      font-size: 1.2em;
+      display: block; }
+      .form_holder p span label {
+        margin-bottom: 0.1em; }
+      .form_holder p span input.text_field, .form_holder p span input.password_field {
+        height: 1.2em;
+        width: 428px;
+        font-size: 1em;
+        padding: 0.2em;
+        margin-bottom: 1em;
+        border: 2px solid #00c0ff;
+        background: #2e2e2e;
+        color: #00c0ff; }
+        .form_holder p span input.text_field:hover, .form_holder p span input.text_field:focus, .form_holder p span input.password_field:hover, .form_holder p span input.password_field:focus {
+          border: 2px solid #ddb0de;
+          background: #4e4e4e;
+          color: #ddb0de; }
+
+p.submit .alternative_button {
+  margin-left: 0.5em;
+  padding-left: 0.5em;
+  border-left: 1px solid white; }
 p.submit input {
   padding: 0.5em;
   font-size: 1.2em;
   border: 2px solid #00c0ff;
   background: #2e2e2e;
-  color: #00c0ff; }
+  color: #00c0ff;
+  cursor: pointer; }
   p.submit input:hover, p.submit input:focus {
     color: #ddb0de;
     border: 2px solid #ddb0de; }
 
-p span.key {
-  color: #00c0ff;
-  width: 200px;
-  float: left; }
+p {
+  overflow: auto;
+  margin-bottom: 5px; }
+  p span.key, p span.value {
+    float: left;
+    padding: 0.3em 0.3em 0.1em 0.3em; }
+  p span.key {
+    color: #00c0ff;
+    width: 200px; }
+  p span.value {
+    width: 400px;
+    background: #2e2e2e; }

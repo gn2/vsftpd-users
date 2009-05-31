@@ -28,14 +28,16 @@ h1 {
 h2 {
   background: #2e2e2e;
   padding: 0.3em 0.3em 0.1em 0.3em;
-  font-size: 2.8em; }
+  font-size: 2.8em;
+  position: relative; }
   h2.page_title {
     margin-bottom: 1em; }
 
 h3 {
   background: #2e2e2e;
   padding: 0.3em 0.3em 0.1em 0.3em;
-  font-size: 2.2em; }
+  font-size: 2.2em;
+  position: relative; }
   h3.subtitle {
     margin: 1em 0; }
 

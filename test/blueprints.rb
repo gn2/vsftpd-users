@@ -16,3 +16,9 @@ User.blueprint(:with_password) do
   password { "123456abcDE" } 
   password_confirmation { "123456abcDE" } 
 end
+
+User.blueprint(:active) do
+  password { "123456abcDE" } 
+  password_confirmation { "123456abcDE" } 
+  state { "active" }
+end

@@ -15,4 +15,19 @@ class UserTest < Test::Unit::TestCase
       assert_equal @user.state, 'pending'
     end
   end
+  
+  context "An active user" do
+    setup do 
+      @user = User.make(:active)
+    end
+
+    should "repond to is_admin?" do
+      assert_equal @user.is_admin?, @user.is_admin
+    end
+    
+    should "not be an admin" do
+      assert_not_equal @user.is_admin?, true
+    end
+    
+  end
 end

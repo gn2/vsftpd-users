@@ -4,13 +4,22 @@
 !light_bg_gray = #2e2e2e
 !bg_gray = #181818
 !red = red
-
+!white = white
 
 #content
   :padding 2em 3em
   p, span
     :font-size 1.3em
-  
+  h2 span, h3 span
+    :position absolute
+    :top 0.85em
+    :right 0.7em
+    :font-size 0.5em
+    :padding 0.2em 0.4em 0.1em 0.4em
+    :background= !lighter_bg_gray
+  h3 span
+    :top 0.65em  
+    :font-size 0.6em
 #central_box
   :margin 10em auto 2em auto
   :padding 2em
@@ -40,21 +49,55 @@
             :border= 2px solid !pink
             :background= !lighter_bg_gray
 // Forms
+.form_holder
+  :width 440px
+  :margin auto
+  p
+    :margin 1em 0
+    span
+      :font-size 1.2em
+      :display block
+      label
+        :margin-bottom 0.1em
+      input.text_field, input.password_field
+        :height 1.2em
+        :width 428px
+        :font-size 1em
+        :padding 0.2em
+        :margin-bottom 1em
+        :border= 2px solid !blue
+        :background= !light_bg_gray
+        :color= !blue
+        &:hover, &:focus
+          :border= 2px solid !pink
+          :background= !lighter_bg_gray
+          :color= !pink
 
-p.submit input
-  :padding 0.5em
-  :font-size 1.2em
-  :border= 2px solid !blue
-  :background= !light_bg_gray
-  :color= !blue
-  &:hover, &:focus
-    :color= !pink
-    :border= 2px solid !pink  
+p.submit
+  .alternative_button
+    :margin-left 0.5em
+    :padding-left 0.5em
+    :border-left= 1px solid !white
+  input
+    :padding 0.5em
+    :font-size 1.2em
+    :border= 2px solid !blue
+    :background= !light_bg_gray
+    :color= !blue
+    :cursor pointer
+    &:hover, &:focus
+      :color= !pink
+      :border= 2px solid !pink
 
 p
+  :overflow auto
+  :margin-bottom 5px
+  span.key, span.value
+    :float left
+    :padding 0.3em 0.3em 0.1em 0.3em
   span.key
     :color= !blue
     :width 200px
-    :float left
   span.value
-    
+    :width 400px
+    :background= !light_bg_gray

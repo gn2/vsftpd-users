@@ -13,4 +13,8 @@ class User < ActiveRecord::Base
   aasm_state :deleted
   
   has_many :ftp_users
+  
+  def is_admin?
+    self.is_admin
+  end
 end
