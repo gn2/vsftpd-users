@@ -1,0 +1,36 @@
+%table{:cellspacing => "0", :summary => "Servers"}  
+  %colgroup
+    %col#num_col
+    %col#name_col
+    %col#ip_address_col
+    %col#user_count_col
+    %col#created_col
+    %col#updated_col
+    %col#action
+  %thead
+    %tr
+      %th{:scope => "col"} #
+      %th{:scope => "col"} Name
+      %th{:scope => "col"} IP address
+      %th{:scope => "col"} User count
+      %th{:scope => "col"} Created
+      %th{:scope => "col"} Updated
+      %th{:scope => "col"} Action
+  %tbody
+    -if (current_objects && current_objects.length > 0)
+      -current_objects.each_with_index do |object, index|
+        %tr{:class => (index%2==0 ? "even" : "odd")}
+          %td= index + 1
+          %td= link_to h(object.name), server_path(object)
+          %td= h(object.ip_address)
+          %td= pluralize(object.ftpusers.size, "user")
+          %td= "#{distance_of_time_in_words_to_now(object.created_at)} ago"
+          %td= "#{distance_of_time_in_words_to_now(object.updated_at)} ago"
+          %td
+            =link_to 'edit', edit_server_path(object), :class => "button"            
+            =link_to 'delete', server_path(object), {:confirm => 'Are you sure?', :method => :delete, :class => "button delete"}
+    -else
+      %tr
+        %td.empty{:colspan => "5"} 
+          No servers found. 
+          = link_to "Create one?", new_server_path

@@ -15,6 +15,16 @@ a:hover {
   color: #ddb0de;
   text-decoration: none; }
 
+a.button {
+  border: 2px solid #4e4e4e;
+  padding: 0.2em 0.4em;
+  text-decoration: none; }
+
+a.button:hover {
+  border: 2px solid #00c0ff;
+  color: #00c0ff;
+  text-decoration: underline; }
+
 h1, h2, h3 {
   font-weight: normal;
   color: #00c0ff; }
@@ -39,7 +49,7 @@ h3 {
   font-size: 2.2em;
   position: relative; }
   h3.subtitle {
-    margin: 1em 0; }
+    margin: 2em 0 1em 0; }
 
 .error {
   color: red; }

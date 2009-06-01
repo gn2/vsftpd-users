@@ -7,7 +7,7 @@ class CreateFtpusers < ActiveRecord::Migration
       t.column :user_id, :integer
       t.column :server_id, :integer
       t.column :created_at, :datetime
-      t.column :udpated_at, :datetime
+      t.column :updated_at, :datetime
     end
   end
 

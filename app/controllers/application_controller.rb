@@ -47,5 +47,13 @@ class ApplicationController < ActionController::Base
       session[:return_to] = nil
     end
     
+    def require_admin
+      unless current_user && current_user.is_admin?
+        store_location
+        flash[:notice] = "You must be an administrator to access this page"
+        redirect_to account_path
+        return false
+      end
+    end
   
 end

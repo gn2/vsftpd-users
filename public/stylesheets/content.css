@@ -2,16 +2,19 @@
   padding: 2em 3em; }
   #content p, #content span {
     font-size: 1.3em; }
-  #content h2 span, #content h3 span {
-    position: relative;
-    top: 0.35em;
-    float: right;
-    font-size: 0.5em;
-    padding: 0.2em 0.4em 0.1em 0.4em;
-    margin-left: 0.5em;
-    background: #4e4e4e; }
-  #content h3 span {
-    top: 0.25em;
+  #content h2 ul, #content h3 ul {
+    position: absolute;
+    top: 0.85em;
+    right: 0.75em;
+    font-size: 0.5em; }
+    #content h2 ul li, #content h3 ul li {
+      display: inline-block;
+      margin-left: 0.5em;
+      padding: 0.2em 0.4em 0.1em 0.4em;
+      background: #4e4e4e; }
+  #content h3 ul {
+    top: 0.65em;
+    right: 0.55em;
     font-size: 0.6em; }
 
 #central_box {
@@ -64,7 +67,7 @@ p.submit input {
 p {
   overflow: auto;
   margin-bottom: 5px; }
-  p span.key, p span.value {
+  p span.key, p span.value, p span.large {
     float: left;
     padding: 0.3em 0.3em 0.1em 0.3em; }
   p span.key {
@@ -73,6 +76,29 @@ p {
   p span.value {
     width: 400px;
     background: #2e2e2e; }
+  p span.large {
+    margin-top: 15px;
+    width: 600px;
+    color: #00c0ff;
+    background: #2e2e2e;
+    padding: 0.3em 0.6em 0.1em 0.6em; }
+
+table {
+  width: 70%;
+  margin: 0 auto;
+  font-size: 1.4em; }
+  table thead th {
+    background: #2e2e2e;
+    color: #00c0ff;
+    border-bottom: 1px solid #00c0ff;
+    font-size: 1.1em;
+    font-weight: normal;
+    padding: 0.4em 0 0.2em; }
+  table tbody tr.odd {
+    background: #2e2e2e; }
+  table tbody td {
+    text-align: center;
+    padding: 0.45em 0.2em; }
 
 .fieldWithErrors {
   color: #cc0000 !important; }

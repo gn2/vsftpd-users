@@ -9,5 +9,10 @@ class UsersController < ApplicationController
   
   make_resourceful do
     actions :all
+    
+    before :show do
+      @servers = Server.all
+      @ftpusers = current_object.ftpusers
+    end
   end
 end

@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   validates_presence_of :name
   
   # Relationships
-  has_many :ftp_users
+  has_many :ftpusers
   
   # AASM configuration
   aasm_column :state

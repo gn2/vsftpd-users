@@ -1,6 +1,7 @@
 %h2.page_title 
   My Account
-  %span= link_to "Edit my account", edit_user_path(current_object)
+  %ul
+    %li= link_to "Edit my account", edit_user_path(current_object)
 %p
   %span.key Login: 
   %span.value= h current_object.login
@@ -17,8 +18,23 @@
   %span.key Last login IP:
   %span.value= h current_object.last_login_ip if !current_object.last_login_ip.nil?
 
+-if current_object.is_admin?
+  %p
+    %span.large Your have an administrator account.
+
+
 %h3.subtitle
   My FTP accounts
-  -if current_object.is_admin?
-    %span= link_to "Browse all FTP accounts", ftpusers_path
-  %span= link_to "Create a new FTP account", new_ftpuser_path
+  %ul
+    %li= link_to "Browse all FTP accounts", ftpusers_path
+    %li= link_to "Create a new FTP account", new_ftpuser_path
+    
+= render :partial => "ftpusers/ftpusers_table", :locals => {:current_objects => @ftpusers}
+
+
+%h3.subtitle
+  The servers
+  %ul
+    %li= link_to "Create a new server", new_server_path
+
+= render :partial => "servers/servers_table", :locals => {:current_objects => @servers}

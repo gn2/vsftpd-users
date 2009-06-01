@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(:version => 20090530235522) do
     t.integer  "user_id"
     t.integer  "server_id"
     t.datetime "created_at"
-    t.datetime "udpated_at"
+    t.datetime "updated_at"
     t.datetime "deleted_at"
   end
 
