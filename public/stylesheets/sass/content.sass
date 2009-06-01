@@ -27,27 +27,7 @@
   :border= 2px dashed !blue
   h2
     :margin-bottom 1.5em
-  .form_holder
-    :width 440px
-    :margin auto
-    p
-      :margin 1em 0
-      span
-        :display block
-        label
-          :margin-bottom 0.1em
-        input
-          :height 1.2em
-          :width 428px
-          :font-size 1em
-          :padding 0.2em
-          :margin-bottom 1em
-          :border= 2px solid !blue
-          :background= !light_bg_gray
-          :color= !blue
-          &:hover, &:focus
-            :border= 2px solid !pink
-            :background= !lighter_bg_gray
+
 // Forms
 .form_holder
   :width 440px
@@ -101,3 +81,31 @@ p
   span.value
     :width 400px
     :background= !light_bg_gray
+
+
+
+// Error handling
+.fieldWithErrors
+  :color= !red \!important
+  input, input:hover, input:focus
+    :border= 2px solid !red \!important
+
+#errorExplanation
+  :width 424px
+  :border 2px solid red
+  :padding 7px
+  :padding-bottom 12px
+  :margin-bottom 20px
+  
+  h2
+    :text-align left
+    :font-weight normal
+    :padding 5px 5px 5px 15px
+    :font-size 14px
+    :margin -7px
+    :background-color #c00
+    :color= !white
+  ul li
+    :list-style square
+    :margin-left 2em
+    :font-size 14px

@@ -79,30 +79,3 @@ h3 {
     font-size: 1.2em; }
     #header .menu .name {
       margin-right: 10px; }
-
-.fieldWithErrors {
-  color: red; }
-  .fieldWithErrors input, .fieldWithErrors input:hover, .fieldWithErrors input:focus {
-    border: 2px solid red; }
-
-#errorExplanation {
-  width: 400px;
-  border: 2px solid red;
-  padding: 7px;
-  padding-bottom: 12px;
-  margin-bottom: 20px; }
-  #errorExplanation h2 {
-    text-align: left;
-    font-weight: bold;
-    padding: 5px 5px 5px 15px;
-    font-size: 12px;
-    margin: -7px;
-    background-color: #c00;
-    color: #fff; }
-  #errorExplanation p {
-    color: #333;
-    margin-bottom: 0;
-    padding: 5px; }
-  #errorExplanation ul li {
-    font-size: 12px;
-    list-style: square; }

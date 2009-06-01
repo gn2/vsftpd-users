@@ -20,27 +20,6 @@
   border: 2px dashed #00c0ff; }
   #central_box h2 {
     margin-bottom: 1.5em; }
-  #central_box .form_holder {
-    width: 440px;
-    margin: auto; }
-    #central_box .form_holder p {
-      margin: 1em 0; }
-      #central_box .form_holder p span {
-        display: block; }
-        #central_box .form_holder p span label {
-          margin-bottom: 0.1em; }
-        #central_box .form_holder p span input {
-          height: 1.2em;
-          width: 428px;
-          font-size: 1em;
-          padding: 0.2em;
-          margin-bottom: 1em;
-          border: 2px solid #00c0ff;
-          background: #2e2e2e;
-          color: #00c0ff; }
-          #central_box .form_holder p span input:hover, #central_box .form_holder p span input:focus {
-            border: 2px solid #ddb0de;
-            background: #4e4e4e; }
 
 .form_holder {
   width: 440px;
@@ -93,3 +72,27 @@ p {
   p span.value {
     width: 400px;
     background: #2e2e2e; }
+
+.fieldWithErrors {
+  color: red !important; }
+  .fieldWithErrors input, .fieldWithErrors input:hover, .fieldWithErrors input:focus {
+    border: 2px solid red !important; }
+
+#errorExplanation {
+  width: 424px;
+  border: 2px solid red;
+  padding: 7px;
+  padding-bottom: 12px;
+  margin-bottom: 20px; }
+  #errorExplanation h2 {
+    text-align: left;
+    font-weight: normal;
+    padding: 5px 5px 5px 15px;
+    font-size: 14px;
+    margin: -7px;
+    background-color: #c00;
+    color: white; }
+  #errorExplanation ul li {
+    list-style: square;
+    margin-left: 2em;
+    font-size: 14px; }
