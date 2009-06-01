@@ -3,7 +3,7 @@
 !lighter_bg_gray = #4e4e4e
 !light_bg_gray = #2e2e2e
 !bg_gray = #181818
-!red = red
+!red = #c00
 !white = white
 
 #content
@@ -11,14 +11,15 @@
   p, span
     :font-size 1.3em
   h2 span, h3 span
-    :position absolute
-    :top 0.85em
-    :right 0.7em
+    :position relative
+    :top 0.35em
+    :float right
     :font-size 0.5em
     :padding 0.2em 0.4em 0.1em 0.4em
+    :margin-left 0.5em
     :background= !lighter_bg_gray
   h3 span
-    :top 0.65em  
+    :top 0.25em  
     :font-size 0.6em
 #central_box
   :margin 10em auto 2em auto
@@ -92,7 +93,7 @@ p
 
 #errorExplanation
   :width 424px
-  :border 2px solid red
+  :border= 2px solid !red
   :padding 7px
   :padding-bottom 12px
   :margin-bottom 20px
@@ -103,7 +104,7 @@ p
     :padding 5px 5px 5px 15px
     :font-size 14px
     :margin -7px
-    :background-color #c00
+    :background-color= !red
     :color= !white
   ul li
     :list-style square

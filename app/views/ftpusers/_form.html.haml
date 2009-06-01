@@ -1,12 +1,9 @@
 %p
-  %label{:for => "ftpuser_login"} Login:
-  = f.text_field :login
+  %span.label= f.label :login
+  %span.input= f.text_field :login, :class => "text_field"
 %p
-  %label{:for => "ftpuser_password"} Password:
-  = f.text_field :password
+  %span.label= f.label :password, f.object.new_record? ? nil : "Change password"
+  %span.input= f.password_field :password, :class => "password_field"
 %p
-  %label{:for => "ftpuser_created_at"} Created at:
-  = f.datetime_select :created_at
-%p
-  %label{:for => "ftpuser_udpated_at"} Udpated at:
-  = f.datetime_select :udpated_at
+  %span.label= f.label :password_confirmation
+  %span.input= f.password_field :password_confirmation, :class => "password_field"

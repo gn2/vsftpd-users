@@ -3,6 +3,9 @@ class CreateFtpusers < ActiveRecord::Migration
     create_table :ftpusers, :force => true do |t|
       t.column :login, :string
       t.column :password, :string
+      t.column :state, :string
+      t.column :user_id, :integer
+      t.column :server_id, :integer
       t.column :created_at, :datetime
       t.column :udpated_at, :datetime
     end

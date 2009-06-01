@@ -2,15 +2,33 @@ class Ftpuser < ActiveRecord::Base
   include AASM
   is_paranoid
   
-  aasm_column :state
-  aasm_initial_state :pending
+  attr_accessor :password_confirmation
   
-  aasm_state :pending
+  # Validations
+  validates_presence_of :login, :password
+  validates_confirmation_of :password
+  
+  # Relationships
+  belongs_to :server
+  belongs_to :user
+  
+  # AASM configuration
+  aasm_column :state
+  aasm_initial_state :active
+  
   aasm_state :active
   aasm_state :inactive
   aasm_state :banned
   aasm_state :deleted
   
-  belongs_to :server
-  belongs_to :user
+  aasm_event :inactivate do
+    transitions :to => :inactive, :from => [:passive, :pending, :verified, :active, :deleted, :banned]
+  end
+  aasm_event :ban do
+    transitions :banned => :active, :from => [:passive, :pending, :verified, :active, :inactive, :deleted]
+  end
+  aasm_event :delete do
+    transitions :to => :deleted, :from => [:passive, :pending, :verified, :active, :inactive, :banned]
+  end
+
 end
