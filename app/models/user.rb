@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   attr_accessible :name, :login, :email, :password
   
   # Validations
-  validates_presence_of :first_name
+  validates_presence_of :name
   
   # Relationships
   has_many :ftp_users
