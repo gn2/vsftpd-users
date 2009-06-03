@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   validates_presence_of :name
   
   # Relationships
-  has_many :ftpusers
+  has_and_belongs_to_many :groups
   
   # AASM configuration
   aasm_column :state
@@ -47,6 +47,14 @@ class User < ActiveRecord::Base
   # Instqnce nethods
   def is_admin?
     self.is_admin
+  end
+  
+  def ftpusers
+    returning [] do |ftpusers|
+      self.groups.each do |group|
+        ftpusers << group.ftpusers
+      end
+    end.flatten
   end
   
   # Class methods

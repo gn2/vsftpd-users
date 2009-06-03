@@ -10,7 +10,9 @@ class Ftpuser < ActiveRecord::Base
   
   # Relationships
   belongs_to :server
-  belongs_to :user
+  belongs_to :group
+  
+  delegate :users, :to => :group
   
   # AASM configuration
   aasm_column :state

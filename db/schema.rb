@@ -9,17 +9,30 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090530235522) do
+ActiveRecord::Schema.define(:version => 20090603004324) do
 
   create_table "ftpusers", :force => true do |t|
     t.string   "login"
     t.string   "password"
     t.string   "state"
-    t.integer  "user_id"
     t.integer  "server_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"
+    t.integer  "group_id"
+  end
+
+  create_table "groups", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.datetime "deleted_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "groups_users", :id => false, :force => true do |t|
+    t.integer "user_id"
+    t.integer "group_id"
   end
 
   create_table "servers", :force => true do |t|

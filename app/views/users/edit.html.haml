@@ -1,6 +1,7 @@
 %h2.page_title 
   Editing my account
-  %span= link_to "Back to my account", user_path(current_object)
+  %ul
+    %li= link_to "Back to my account", user_path(current_object)
 
 .form_holder
   = error_messages_for :user

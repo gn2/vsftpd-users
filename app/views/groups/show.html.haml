@@ -1,0 +1,18 @@
+%h1 Viewing groups
+%p 
+  NAME:
+  =current_object.name
+
+%p 
+  DESC:
+  =current_object.description
+
+
+%div[current_object]
+
+
+= link_to 'Edit', edit_object_path
+|
+= link_to 'Destroy', object_path, :confirm => 'Really destroy groups?', :method => :delete
+|
+= link_to 'Back', objects_path
