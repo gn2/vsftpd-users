@@ -13,13 +13,13 @@
   %span.value= h current_object.email
 %p 
   %span.key Last login:
-  %span.value= h current_object.last_login_at.strftime("%d/%m/%Y at %H:%M") if !current_object.last_login_at.nil?
+  %span.value= current_object.last_login_at ? h(current_object.last_login_at.strftime("%d/%m/%Y at %H:%M")) : "&nbsp;"
 %p 
   %span.key Last login IP:
-  %span.value= h current_object.last_login_ip if !current_object.last_login_ip.nil?
+  %span.value= current_object.last_login_ip || "&nbsp;"
 %p
   %span.key Groups you belong to:
-  %span.value= current_object.groups.collect{ |group| link_to(group.name, group_path(group)) }.join(', ')
+  %span.value= group_list(current_object)
 
 
 -if current_object.is_admin?
