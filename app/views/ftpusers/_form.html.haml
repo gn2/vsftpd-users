@@ -9,8 +9,8 @@
   %span.input= f.password_field :password_confirmation, :class => "password_field"
 %p
   %span.label
-    = f.label :user_id, "This account will belong to"
-    = f.select :user_id, @users, {:prompt => 'Select a user'}, {}
+    = f.label :group_id, "This account will belong to"
+    = f.select :group_id, @groups, {:prompt => 'Select a group'}, {}
 %p
   %span.label
     = f.label :server_id, "This account is for"

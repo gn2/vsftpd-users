@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   acts_as_authentic
   is_paranoid
 
-  attr_accessible :name, :login, :email, :password
+  attr_accessible :name, :login, :email, :password, :password_confirmation
   
   # Validations
   validates_presence_of :name
@@ -44,7 +44,7 @@ class User < ActiveRecord::Base
     @activated
   end
   
-  # Instqnce nethods
+  # Instance nethods
   def is_admin?
     self.is_admin
   end

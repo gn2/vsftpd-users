@@ -6,7 +6,7 @@ module ApplicationHelper
       when 0..4:   " 今晩は"        # Good evening
       when 5..12:  " お早うございます"   # Good morning
       when 13..19: " 今日は"        # Good afternoon
-      when 20..23: " 今晩は"        # Good evening     
+      when 20..23: " 今晩は"        # Good evening
     end
     "#{greeting}, #{name}!"
   end
