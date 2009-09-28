@@ -1,0 +1,13 @@
+%h2.page_title 
+  Create a new server
+  %ul
+    %li= link_to "Back to servers list", objects_url
+
+.form_holder
+  = error_messages_for :ftpuser
+
+  - form_for(current_object, :url => objects_url) do |f|
+    = render :partial => "form", :locals => {:f => f}
+    %p.submit
+      = submit_tag("Create server")
+      = link_to("Cancel", objects_url, :class => "alternative_button")

@@ -38,6 +38,7 @@
 %h3.subtitle
   The servers
   %ul
+    %li= link_to "Browse all servers", servers_path
     %li= link_to "Create a new server", new_server_path
 
 = render :partial => "servers/servers_table", :locals => {:current_objects => @servers}

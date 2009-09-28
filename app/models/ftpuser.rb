@@ -27,7 +27,7 @@ class Ftpuser < ActiveRecord::Base
     transitions :to => :inactive, :from => [:passive, :pending, :verified, :active, :deleted, :banned]
   end
   aasm_event :ban do
-    transitions :banned => :active, :from => [:passive, :pending, :verified, :active, :inactive, :deleted]
+    transitions :to => :banned, :from => [:passive, :pending, :verified, :active, :inactive, :deleted]
   end
   aasm_event :delete do
     transitions :to => :deleted, :from => [:passive, :pending, :verified, :active, :inactive, :banned]
