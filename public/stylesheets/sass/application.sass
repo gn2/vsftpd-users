@@ -22,15 +22,34 @@ a:hover
   :color= !pink
   :text-decoration none
 
-a.button
-  :border= 2px solid !lighter_bg_gray
-  :padding 0.2em 0.4em
-  :text-decoration none
-a.button:hover
-  :border= 2px solid !blue
-  :color= !blue
-  :text-decoration underline
-  
+p
+  a.button
+    :text-decoration none
+    :line-height 44px
+    :padding 11px 10px 8px 10px
+    :font-size 1.3em
+    :border= 2px solid !blue
+    :background= !light_bg_gray
+    :color= !blue
+    &:hover, &:focus
+      :color= !pink
+      :border= 2px solid !pink
+    
+  a.alternative_button
+    :margin-left 0.5em
+    :padding-left 0.5em
+    :border-left= 1px solid !white
+
+td
+  a.button
+    :border= 2px solid !lighter_bg_gray
+    :padding 0.2em 0.4em
+    :text-decoration none
+    :hover
+      :border= 2px solid !blue
+      :color= !blue
+      :text-decoration underline
+
 h1, h2, h3
   :font-weight normal
   :color= !blue
@@ -62,7 +81,7 @@ h3
   :margin 1em auto
   :width 80%
   :text-align center
-  
+
 #header
   :height 1.5em
   :padding 1em

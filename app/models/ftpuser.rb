@@ -5,7 +5,7 @@ class Ftpuser < ActiveRecord::Base
   attr_accessor :password_confirmation
   
   # Validations
-  validates_presence_of :login, :password, :server, :user
+  validates_presence_of :login, :password, :server, :group
   validates_confirmation_of :password
   
   # Relationships

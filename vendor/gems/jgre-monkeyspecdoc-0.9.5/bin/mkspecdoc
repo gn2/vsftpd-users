@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+$: << File.join(File.dirname(__FILE__), '..', 'lib')
+
+$:.push File.dirname(__FILE__)
+require 'monkeyspecdoc'
+
+ARGV.each do |file|
+  require file
+end

@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   
   # Validations
   validates_presence_of :name
+  validates_uniqueness_of :login, :email
   
   # Relationships
   has_and_belongs_to_many :groups

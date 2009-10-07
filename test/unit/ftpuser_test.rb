@@ -1,7 +1,11 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class FtpuserTest < Test::Unit::TestCase
-  def test_truth
-    assert true
-  end
+  should_be_paranoid
+  
+  should_validate_presence_of :login, :password, :server, :group
+  
+  should_belong_to :group
+  should_belong_to :server
+  
 end

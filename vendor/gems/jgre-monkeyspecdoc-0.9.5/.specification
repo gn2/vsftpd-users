@@ -1,0 +1,65 @@
+--- !ruby/object:Gem::Specification 
+name: jgre-monkeyspecdoc
+version: !ruby/object:Gem::Version 
+  version: 0.9.5
+platform: ruby
+authors: 
+- Janico Greifenberg
+autorequire: 
+bindir: bin
+cert_chain: []
+
+date: 2008-12-18 00:00:00 +00:00
+default_executable: mkspecdoc
+dependencies: []
+
+description: Specdoc output for Ruby's Test::Unit and Shoulda
+email: jgre@jgre.org
+executables: 
+- mkspecdoc
+extensions: []
+
+extra_rdoc_files: []
+
+files: 
+- bin/mkspecdoc
+- monkeyspecdoc.gemspec
+- lib/monkeyspecdoc.rb
+- examples/helloworld.rb
+- examples/helloworld_spec.rb
+- examples/helloworld_test.rb
+- examples/Rakefile
+- test/error_test.rb
+- test/failure_test.rb
+- test/monkeyspecdoc_test.rb
+- test/success_test.rb
+has_rdoc: false
+homepage: http://jgre.org/2008/09/03/monkeyspecdoc/
+licenses: []
+
+post_install_message: 
+rdoc_options: []
+
+require_paths: 
+- lib
+required_ruby_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      version: "0"
+  version: 
+required_rubygems_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      version: "0"
+  version: 
+requirements: []
+
+rubyforge_project: 
+rubygems_version: 1.3.2
+signing_key: 
+specification_version: 2
+summary: Specdoc output for Ruby's Test::Unit and Shoulda
+test_files: 
+- test/monkeyspecdoc_test.rb

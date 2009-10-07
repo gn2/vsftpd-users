@@ -1,5 +1,6 @@
 class FtpusersController < ApplicationController
-
+  before_filter :require_user
+  
   make_resourceful do
     actions :all
     
@@ -8,5 +9,6 @@ class FtpusersController < ApplicationController
       @groups    = Group.all.collect {|group| [group.name.to_s, group.id.to_s] }
     end
   end
+
 
 end

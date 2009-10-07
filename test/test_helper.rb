@@ -41,3 +41,41 @@ class ActiveSupport::TestCase
   
   setup { Sham.reset }
 end
+
+class Test::Unit::TestCase
+  
+  def self.should_be_paranoid
+    klass = self.name.gsub(/Test$/, '').constantize
+    
+    context "A #{klass.name}" do
+      should "be paranoid (it will not be deleted from the database)" do
+        klass.is_paranoid
+      end
+    
+      should "not have a value for deleted_at" do
+        klass.delete_all
+        #assert object = klass.find(:first)
+        assert object = klass.make
+        assert_nil object.deleted_at
+      end
+    
+      context "when destroyed" do
+        setup do
+          #assert object = klass.find(:first)
+          assert object = klass.make
+          @deleted_id = object.id
+          object.destroy
+        end
+      
+        should "not be found" do
+          assert_raise(ActiveRecord::RecordNotFound) { klass.find(@deleted_id) }
+        end
+    
+        should "still exist in the database" do
+          deleted_object = klass.find_with_destroyed(@deleted_id)
+          assert_not_nil deleted_object.deleted_at
+        end
+      end
+    end
+  end
+end

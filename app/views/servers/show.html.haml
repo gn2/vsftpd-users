@@ -1,0 +1,28 @@
+%h2.page_title 
+  The servers
+  %ul
+    %li= link_to "Create a new server", new_server_path
+    %li= link_to "Back to my account", account_path
+
+%p
+  %span.key Name: 
+  %span.value= h current_object.name
+%p
+  %span.key Description: 
+  %span.value= nl2br(h current_object.description)
+%p
+  %span.key IP address: 
+  %span.value= h current_object.ip_address
+%p
+  %span.key User count: 
+  %span.value= pluralize(current_object.ftpusers.size, "user")
+%p
+  %span.key Created: 
+  %span.value= "#{distance_of_time_in_words_to_now(current_object.created_at)} ago"
+%p
+  %span.key Updated: 
+  %span.value= "#{distance_of_time_in_words_to_now(current_object.updated_at)} ago"
+  
+%p
+  =link_to 'Edit', edit_server_path(current_object), :class => "button"
+  =link_to 'Delete', server_path(current_object), {:confirm => 'Are you sure?', :method => :delete, :class => "alternative_button"}

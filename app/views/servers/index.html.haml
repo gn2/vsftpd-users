@@ -1,6 +1,8 @@
-%h3.subtitle
+%h2.page_title
   The servers
   %ul
     %li= link_to "Create a new server", new_server_path
+    %li= link_to "Back to my account", account_path
+
 
 = render :partial => "servers_table", :locals => {:current_objects => @servers}

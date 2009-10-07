@@ -13,7 +13,8 @@ two:
   id: 2
   name: MyString
   email: MyString
-  crypted_password: MyString
+  login: MyString
+  crypted_password: 10dd3a9cb9c68ff6403e78f7e2da14d7
   password_salt: MyString
   state: MyString
   company_id: 1

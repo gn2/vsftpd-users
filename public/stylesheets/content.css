@@ -35,7 +35,7 @@
       display: block; }
       .form_holder p span label {
         margin-bottom: 0.1em; }
-      .form_holder p span input.text_field, .form_holder p span input.password_field {
+      .form_holder p span input.text_field, .form_holder p span input.password_field, .form_holder p span textarea.text_area {
         height: 1.2em;
         width: 428px;
         font-size: 1em;
@@ -44,10 +44,12 @@
         border: 2px solid #00c0ff;
         background: #2e2e2e;
         color: #00c0ff; }
-        .form_holder p span input.text_field:hover, .form_holder p span input.text_field:focus, .form_holder p span input.password_field:hover, .form_holder p span input.password_field:focus {
+        .form_holder p span input.text_field:hover, .form_holder p span input.text_field:focus, .form_holder p span input.password_field:hover, .form_holder p span input.password_field:focus, .form_holder p span textarea.text_area:hover, .form_holder p span textarea.text_area:focus {
           border: 2px solid #ddb0de;
           background: #4e4e4e;
           color: #ddb0de; }
+      .form_holder p span textarea.text_area {
+        height: 4.8em; }
 
 p.submit .alternative_button {
   margin-left: 0.5em;

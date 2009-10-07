@@ -4,7 +4,7 @@
     %li= link_to "Back to servers list", objects_url
 
 .form_holder
-  = error_messages_for :ftpuser
+  = error_messages_for :server
 
   - form_for(current_object, :url => objects_url) do |f|
     = render :partial => "form", :locals => {:f => f}
