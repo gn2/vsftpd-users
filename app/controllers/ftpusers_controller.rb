@@ -1,12 +1,14 @@
 class FtpusersController < ApplicationController
-  before_filter :require_admin, :only => [:new, :create, :edit, :update, :index, :destroy]
-  before_filter :require_user, :only => [:show, :edit_password, :update_password]
+  before_filter :require_admin, :only => [:new, :create, :edit, :update, :destroy]
+  before_filter :require_user, :only => [:show, :edit_password, :update_password, :index]
+  
+  before_filter :current_object, :only => [:edit_password, :update_password, :show]
   
   make_resourceful do
     actions :all
     
-    belongs_to :server
-    belongs_to :group
+    #belongs_to :server
+    #belongs_to :group
     
     before :new, :create, :edit, :update do
       @servers  = Server.all.collect {|server| [server.name.to_s, server.id.to_s] }
@@ -15,12 +17,11 @@ class FtpusersController < ApplicationController
   end
 
   def edit_password
-    @ftpuser = Ftpuser.find(params[:id])
+    @ftpuser = current_object
   end
   
   def update_password
-    @ftpuser = Ftpuser.find(params[:id])
-    #@ftpuser.password = params[:password]
+    @ftpuser = current_object
     
     respond_to do |format|
       if @ftpuser.update_attributes(params[:ftpuser])
@@ -34,5 +35,14 @@ class FtpusersController < ApplicationController
       end
     end
   end
-
+  
+  private
+  def current_object
+    if Ftpuser.find(params[:id]).users.exists?(current_user) || current_user.is_admin?
+      @current_object = Ftpuser.find(params[:id])
+    else
+      flash[:notice] = "You cannot access this FTP account"
+      redirect_to ftpusers_url
+    end
+  end
 end
