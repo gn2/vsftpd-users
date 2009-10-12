@@ -10,9 +10,9 @@
 %p
   %span.key Password:
   %span.value#show_link
-    %span{:style => "font-size: inherit"}= link_to 'Show it:', '#', :onclick => "document.getElementById('password').style.display='';document.getElementById('show_link').style.display='none';"
+    %span{:style => "font-size: inherit"}= link_to 'Show me:', '#', :onclick => "document.getElementById('password').style.display='';document.getElementById('show_link').style.display='none';"
   %span.value#password{:style => "display: none;"}
-    %span{:style => "font-size: inherit"}=link_to 'Hide it:', '#', :onclick => "document.getElementById('password').style.display='none';document.getElementById('show_link').style.display='';"
+    %span{:style => "font-size: inherit"}=link_to 'Hide me:', '#', :onclick => "document.getElementById('password').style.display='none';document.getElementById('show_link').style.display='';"
     =h current_object.password
   %noscript
     %span.value= h current_object.password

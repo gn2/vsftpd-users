@@ -1,7 +1,8 @@
 %p
   %span.label= f.label :login
   %span.input= f.text_field :login, :class => "text_field"
-
+  
+-if params[:action] == 'new'
   %p
     %span.label= f.label :password, f.object.new_record? ? nil : "Change password"
     %span.input= f.password_field :password, :class => "password_field"
@@ -11,8 +12,8 @@
 %p
   %span.label
     = f.label :group_id, "This account will belong to"
-    = f.select :group_id, @groups, {:prompt => 'Select a group'}, {}
+    = f.select :group_id, @groups, {:prompt => 'Select a group', :selected => f.object.group_id.to_s}, {}
 %p
   %span.label
     = f.label :server_id, "This account is for"
-    = f.select :server_id, @servers, {:prompt => 'Select a server'}, {}
+    = f.select :server_id, @servers, {:prompt => 'Select a server', :selected => f.object.server_id.to_s}, {}
