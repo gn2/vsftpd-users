@@ -2,10 +2,28 @@ require "test/unit"
 require "rubygems"
 require "ruby-debug"
 require "active_record"
-require 'active_record/fixtures'
+require "active_record/fixtures"
+
+# A temporary fix to bring active record errors up to speed with rails edge.
+# I need to remove this once the new gem is released. This is only here so my tests pass.
+unless defined?(::ActiveModel)
+  class ActiveRecord::Errors
+    def [](key)
+      value = on(key)
+      value.is_a?(Array) ? value : [value].compact
+    end
+  end
+end
+
 
 ActiveRecord::Schema.verbose = false
-ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :dbfile => ":memory:")
+
+begin
+  ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => ":memory:")
+rescue ArgumentError
+  ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :dbfile => ":memory:")
+end
+
 ActiveRecord::Base.configurations = true
 ActiveRecord::Schema.define(:version => 1) do
   create_table :companies do |t|
@@ -69,15 +87,32 @@ ActiveRecord::Schema.define(:version => 1) do
     t.string    :current_login_ip
     t.string    :last_login_ip
   end
+  
+  create_table :affiliates do |t|
+    t.datetime  :created_at      
+    t.datetime  :updated_at
+    t.integer   :company_id
+    t.string    :username
+    t.string    :pw_hash
+    t.string    :pw_salt
+    t.string    :persistence_token
+  end
+  
+  create_table :ldapers do |t|
+    t.datetime  :created_at      
+    t.datetime  :updated_at
+    t.string    :ldap_login
+    t.string    :persistence_token
+  end
 end
 
 require File.dirname(__FILE__) + '/../lib/authlogic' unless defined?(Authlogic)
-require File.dirname(__FILE__) + '/libs/mock_request'
-require File.dirname(__FILE__) + '/libs/mock_cookie_jar'
-require File.dirname(__FILE__) + '/libs/mock_controller'
+require File.dirname(__FILE__) + '/../lib/authlogic/test_case'
 require File.dirname(__FILE__) + '/libs/project'
+require File.dirname(__FILE__) + '/libs/affiliate'
 require File.dirname(__FILE__) + '/libs/employee'
 require File.dirname(__FILE__) + '/libs/employee_session'
+require File.dirname(__FILE__) + '/libs/ldaper'
 require File.dirname(__FILE__) + '/libs/user'
 require File.dirname(__FILE__) + '/libs/user_session'
 require File.dirname(__FILE__) + '/libs/company'
@@ -94,11 +129,6 @@ class ActiveSupport::TestCase
   setup :activate_authlogic
   
   private
-    def activate_authlogic
-      @controller = MockController.new
-      Authlogic::Session::Base.controller = @controller
-    end
-    
     def password_for(user)
       case user
       when users(:ben)
@@ -110,43 +140,43 @@ class ActiveSupport::TestCase
     
     def http_basic_auth_for(user = nil, &block)
       unless user.blank?
-        @controller.http_user = user.login
-        @controller.http_password = password_for(user)
+        controller.http_user = user.login
+        controller.http_password = password_for(user)
       end
       yield
-      @controller.http_user = @controller.http_password = nil
+      controller.http_user = controller.http_password = nil
     end
     
     def set_cookie_for(user, id = nil)
-      @controller.cookies["user_credentials"] = {:value => user.persistence_token, :expires => nil}
+      controller.cookies["user_credentials"] = {:value => user.persistence_token, :expires => nil}
     end
     
     def unset_cookie
-      @controller.cookies["user_credentials"] = nil
+      controller.cookies["user_credentials"] = nil
     end
     
     def set_params_for(user, id = nil)
-      @controller.params["user_credentials"] = user.single_access_token
+      controller.params["user_credentials"] = user.single_access_token
     end
     
     def unset_params
-      @controller.params["user_credentials"] = nil
+      controller.params["user_credentials"] = nil
     end
     
     def set_request_content_type(type)
-      @controller.request_content_type = type
+      controller.request_content_type = type
     end
     
     def unset_request_content_type
-      @controller.request_content_type = nil
+      controller.request_content_type = nil
     end
     
     def set_session_for(user, id = nil)
-      @controller.session["user_credentials"] = user.persistence_token
-      @controller.session["user_credentials_id"] = user.id
+      controller.session["user_credentials"] = user.persistence_token
+      controller.session["user_credentials_id"] = user.id
     end
     
     def unset_session
-      @controller.session["user_credentials"] = @controller.session["user_credentials_id"] = nil
+      controller.session["user_credentials"] = controller.session["user_credentials_id"] = nil
     end
 end

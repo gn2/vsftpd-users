@@ -1,12 +1,17 @@
 require File.dirname(__FILE__) + '/../test_helper'
 require 'servers_controller'
+include Authlogic::TestCase
 
 # Re-raise errors caught by the controller.
 class ServersController; def rescue_action(e) raise e end; end
 
 class ServersControllerTest < ActionController::TestCase
-  
-  context "ServerController" do
+
+  context "ServersController" do
+    setup do
+      UserSession.create(users(:ben))
+    end
+    
     context "on GET to :index" do
       setup do
         get :index
@@ -49,7 +54,7 @@ class ServersControllerTest < ActionController::TestCase
       should_not_set_the_flash
       should_render_template :show
     end
-    
+      
     context "on GET to :edit" do
       setup do
         get :edit, :id => 1
@@ -59,7 +64,7 @@ class ServersControllerTest < ActionController::TestCase
       should_render_template :edit
       should_not_set_the_flash
     end
-    
+      
     context "on PUT to :update" do
       setup do
         put :update, :id => 1, :server => {:name => "new name", :description => "new description", :ip_address => Sham.ip_address}
@@ -71,7 +76,7 @@ class ServersControllerTest < ActionController::TestCase
         assert_equal((assigns :server).name, "new name")
       end
     end
-    
+      
     context "on DELETE to :destroy" do
       setup do
         @nb = Server.count

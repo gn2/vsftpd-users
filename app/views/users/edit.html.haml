@@ -10,4 +10,4 @@
     = render :partial => "form", :locals => {:f => f}
     %p.submit
       = submit_tag("Update my info")
-      = link_to("Cancel", user_path(current_object), :class => "alternative_button")
+      = link_to("Cancel", objects_path(), :class => "alternative_button")

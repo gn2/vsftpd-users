@@ -32,5 +32,9 @@ class Ftpuser < ActiveRecord::Base
   aasm_event :delete do
     transitions :to => :deleted, :from => [:passive, :pending, :verified, :active, :inactive, :banned]
   end
+  
+  # def password= (:p)
+  #   self.password = :p
+  # end
 
 end

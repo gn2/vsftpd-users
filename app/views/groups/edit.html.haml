@@ -1,0 +1,13 @@
+%h2.page_title 
+  Edit an existing group
+  %ul
+    %li= link_to "Back to groups list", objects_url
+
+.form_holder
+  = error_messages_for :group
+
+  - form_for(current_object, :url => object_url, :html => {:method => :put}) do |f|
+    = render :partial => "form", :locals => {:f => f}
+    %p.submit
+      = submit_tag("Edit group")
+      = link_to("Cancel", objects_url, :class => "alternative_button")

@@ -23,13 +23,12 @@ module Authlogic
         #   end
         #
         # See the various sub modules for the configuration they provide.
-        def acts_as_authentic(&block)
+        def acts_as_authentic(unsupported_options = nil, &block)
           # Stop all configuration if the DB is not set up
-          begin
-            column_names
-          rescue Exception
-            return
-          end
+          return if !db_setup?
+          
+          raise ArgumentError.new("You are using the old v1.X.X configuration method for Authlogic. Instead of " +
+            "passing a hash of configuration options to acts_as_authentic, pass a block: acts_as_authentic { |c| c.my_option = my_value }") if !unsupported_options.nil?
           
           yield self if block_given?
           acts_as_authentic_modules.each { |mod| include mod }
@@ -41,9 +40,14 @@ module Authlogic
         # nothing to do with Authlogic.
         #
         # That being said, this is your tool for extending Authlogic and "hooking" into the acts_as_authentic call.
-        def add_acts_as_authentic_module(mod)
+        def add_acts_as_authentic_module(mod, action = :append)
           modules = acts_as_authentic_modules
-          modules << mod
+          case action
+          when :append
+            modules << mod
+          when :prepend
+            modules = [mod] + modules
+          end
           modules.uniq!
           write_inheritable_attribute(:acts_as_authentic_modules, modules)
         end
@@ -53,46 +57,51 @@ module Authlogic
           acts_as_authentic_modules.delete(mod)
           acts_as_authentic_modules
         end
-      
+        
         private
           def acts_as_authentic_modules
             key = :acts_as_authentic_modules
             inheritable_attributes.include?(key) ? read_inheritable_attribute(key) : []
           end
-        
-          def config(key, value, default_value = nil, read_value = nil)
+          
+          def db_setup?
+            begin
+              column_names
+              true
+            rescue Exception
+              false
+            end
+          end
+          
+          def rw_config(key, value, default_value = nil, read_value = nil)
             if value == read_value
-              return read_inheritable_attribute(key) if inheritable_attributes.include?(key)
-              write_inheritable_attribute(key, default_value)
+              inheritable_attributes.include?(key) ? read_inheritable_attribute(key) : default_value
             else
               write_inheritable_attribute(key, value)
             end
           end
-
-          def first_column_to_exist(*columns_to_check) # :nodoc:
-            columns_to_check.each { |column_name| return column_name.to_sym if column_names.include?(column_name.to_s) }
-            columns_to_check.first ? columns_to_check.first.to_sym : nil
+          
+          def first_column_to_exist(*columns_to_check)
+            if db_setup?
+              columns_to_check.each { |column_name| return column_name.to_sym if column_names.include?(column_name.to_s) }
+            end
+            columns_to_check.first && columns_to_check.first.to_sym
           end
       end
     end
   end
 end
 
-if defined?(::ActiveRecord)
-  module ::ActiveRecord
-    class Base
-      include Authlogic::ActsAsAuthentic::Base
-      include Authlogic::ActsAsAuthentic::Email
-      include Authlogic::ActsAsAuthentic::LoggedInStatus
-      include Authlogic::ActsAsAuthentic::Login
-      include Authlogic::ActsAsAuthentic::MagicColumns
-      include Authlogic::ActsAsAuthentic::Password
-      include Authlogic::ActsAsAuthentic::PerishableToken
-      include Authlogic::ActsAsAuthentic::PersistenceToken
-      include Authlogic::ActsAsAuthentic::RestfulAuthentication
-      include Authlogic::ActsAsAuthentic::SessionMaintenance
-      include Authlogic::ActsAsAuthentic::SingleAccessToken
-      include Authlogic::ActsAsAuthentic::ValidationsScope
-    end
-  end
-end
+::ActiveRecord::Base.send :include, Authlogic::ActsAsAuthentic::Base
+::ActiveRecord::Base.send :include, Authlogic::ActsAsAuthentic::Email
+::ActiveRecord::Base.send :include, Authlogic::ActsAsAuthentic::LoggedInStatus
+::ActiveRecord::Base.send :include, Authlogic::ActsAsAuthentic::Login
+::ActiveRecord::Base.send :include, Authlogic::ActsAsAuthentic::MagicColumns
+::ActiveRecord::Base.send :include, Authlogic::ActsAsAuthentic::Password
+::ActiveRecord::Base.send :include, Authlogic::ActsAsAuthentic::PerishableToken
+::ActiveRecord::Base.send :include, Authlogic::ActsAsAuthentic::PersistenceToken
+::ActiveRecord::Base.send :include, Authlogic::ActsAsAuthentic::RestfulAuthentication
+::ActiveRecord::Base.send :include, Authlogic::ActsAsAuthentic::SessionMaintenance
+::ActiveRecord::Base.send :include, Authlogic::ActsAsAuthentic::SingleAccessToken
+::ActiveRecord::Base.send :include, Authlogic::ActsAsAuthentic::ValidationsScope
+

@@ -5,4 +5,6 @@
     - form_for(current_object, :url => account_path) do |f|
       = f.error_messages
       = render :partial => "form", :locals => {:f => f}
-      %p.submit= submit_tag "Register"
+      %p.submit
+        = submit_tag "Register"
+        = link_to("Cancel", new_user_session_url, :class => "alternative_button")

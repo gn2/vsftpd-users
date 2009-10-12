@@ -11,12 +11,21 @@ module Authlogic
       end
       
       module ClassMethods
-        def human_attribute_name(*args)
-          klass.human_attribute_name(*args)
+        # How to name the attributes of Authlogic, works JUST LIKE ActiveRecord, but instead it uses the following
+        # namespace:
+        #
+        #   authlogic.attributes.user_session.login
+        def human_attribute_name(attribute_key_name, options = {})
+          options[:count] ||= 1
+          options[:default] ||= attribute_key_name.to_s.humanize
+          I18n.t("attributes.#{name.underscore}.#{attribute_key_name}", options)
         end
         
+        # How to name the class, works JUST LIKE ActiveRecord, except it uses the following namespace:
+        #
+        #   authlogic.models.user_session
         def human_name(*args)
-          klass.human_name(*args)
+          I18n.t("models.#{name.underscore}", {:count => 1, :default => name.humanize})
         end
         
         # For rails < 2.3, mispelled
@@ -24,15 +33,27 @@ module Authlogic
           [self]
         end
         
-        # For Rails >2.3, fix mispelling
+        # For rails >= 2.3, mispelling fixed
         def self_and_descendants_from_active_record
           [self]
+        end
+        
+        # For rails >= 3.0
+        def model_name
+          clazz = defined?(::ActiveModel) ? ::ActiveModel::Name : ::ActiveSupport::ModelName
+          clazz.new(self.to_s)
         end
       end
       
       module InstanceMethods
+        # Don't use this yourself, this is to just trick some of the helpers since this is the method it calls.
         def new_record?
           new_session?
+        end
+        
+        # For rails >= 3.0
+        def to_model
+          self
         end
       end
     end

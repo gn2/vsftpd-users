@@ -33,7 +33,6 @@ Ftpuser.blueprint do
   server
   group
 end
-"Name#{rand(1000)}"
 
 Group.blueprint do
   name { Sham.name }

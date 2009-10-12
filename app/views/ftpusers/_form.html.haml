@@ -1,12 +1,13 @@
 %p
   %span.label= f.label :login
   %span.input= f.text_field :login, :class => "text_field"
-%p
-  %span.label= f.label :password, f.object.new_record? ? nil : "Change password"
-  %span.input= f.password_field :password, :class => "password_field"
-%p
-  %span.label= f.label :password_confirmation
-  %span.input= f.password_field :password_confirmation, :class => "password_field"
+
+  %p
+    %span.label= f.label :password, f.object.new_record? ? nil : "Change password"
+    %span.input= f.password_field :password, :class => "password_field"
+  %p
+    %span.label= f.label :password_confirmation
+    %span.input= f.password_field :password_confirmation, :class => "password_field"
 %p
   %span.label
     = f.label :group_id, "This account will belong to"

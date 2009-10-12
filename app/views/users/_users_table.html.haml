@@ -1,0 +1,38 @@
+-if current_user.is_admin?
+  %table{:cellspacing => "0", :summary => "Servers"}  
+    %colgroup
+      %col#num_col
+      %col#name_col
+      %col#ip_address_col
+      %col#user_count_col
+      %col#created_col
+      %col#updated_col
+      %col#action
+    %thead
+      %tr
+        %th{:scope => "col"} #
+        %th{:scope => "col"} Name
+        %th{:scope => "col"} Login
+        %th{:scope => "col"} E-mail
+        %th{:scope => "col"} Company ID?
+        %th{:scope => "col"} State
+        %th{:scope => "col"} Created
+        %th{:scope => "col"} Last login
+        %th{:scope => "col"} Last IP
+        %th{:scope => "col"} Login count
+        %th{:scope => "col"} Is admin?
+    %tbody
+      -if (current_objects && current_objects.length > 0)
+        -current_objects.each_with_index do |object, index|
+          %tr
+            %td= h object.id
+            %td= h object.name
+            %td= h object.login
+            %td= h object.email
+            %td= h object.company_id
+            %td= h object.state
+            %td= "#{distance_of_time_in_words_to_now(object.created_at)} ago"
+            %td= "#{distance_of_time_in_words_to_now(object.last_login_at)} ago"
+            %td= h object.last_login_ip
+            %td= h object.login_count
+            %td= h object.is_admin

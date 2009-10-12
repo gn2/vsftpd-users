@@ -1,0 +1,51 @@
+%h2.page_title 
+  Show a FTP User
+  %ul
+    %li= link_to "Create a new FTP user", new_ftpuser_path
+    %li= link_to "Back to my account", account_path
+
+%p
+  %span.key Login: 
+  %span.value= h current_object.login
+%p
+  %span.key Password:
+  %span.value#show_link
+    %span{:style => "font-size: inherit"}= link_to 'Show it:', '#', :onclick => "document.getElementById('password').style.display='';document.getElementById('show_link').style.display='none';"
+  %span.value#password{:style => "display: none;"}
+    %span{:style => "font-size: inherit"}=link_to 'Hide it:', '#', :onclick => "document.getElementById('password').style.display='none';document.getElementById('show_link').style.display='';"
+    =h current_object.password
+  %noscript
+    %span.value= h current_object.password
+%p
+  %span.key Group: 
+  %span.value
+    %strong= h current_object.group.name
+    %br
+    = h current_object.group.description
+%p
+  %span.key Server: 
+  %span.value
+    %strong= h current_object.server.name
+    %br
+    = h current_object.server.description
+    %br
+    IP:
+    = h current_object.server.ip_address
+%p
+  %span.key Created: 
+  %span.value= "#{distance_of_time_in_words_to_now(current_object.created_at)} ago"
+%p
+  %span.key Updated: 
+  %span.value= "#{distance_of_time_in_words_to_now(current_object.updated_at)} ago"
+  
+%p
+  =link_to 'Change Password', edit_password_ftpuser_path(current_object), :class => "button"
+  -if current_user.is_admin?
+    =link_to 'Edit', edit_ftpuser_path(current_object), :class => "button"
+    =link_to 'Delete', ftpuser_path(current_object), {:confirm => 'Are you sure?', :method => :delete, :class => "alternative_button"}
+
+-if current_user.is_admin?
+  %h3.subtitle
+    Users who have access to this FTP User
+  %p
+    = render :partial => "users/users_table", :locals => {:current_objects => current_object.group.users}

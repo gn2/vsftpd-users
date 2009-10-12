@@ -6,7 +6,7 @@
 .form_holder
   = error_messages_for :ftpuser
 
-  - form_for(current_object, :url => objects_url) do |f|
+  - form_for(current_object, :url => object_url, :html => {:method => :put}) do |f|
     = render :partial => "form", :locals => {:f => f}
     %p.submit
       = submit_tag("Edit server")

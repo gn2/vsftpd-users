@@ -4,6 +4,7 @@ require 'test_help'
 require 'mocha'
 require File.expand_path(File.dirname(__FILE__) + "/blueprints")
 require 'monkeyspecdoc'
+require "authlogic/test_case"
 
 class ActiveSupport::TestCase
   # Transactional fixtures accelerate your tests by wrapping each test method
@@ -40,6 +41,10 @@ class ActiveSupport::TestCase
   # Add more helper methods to be used by all tests here...
   
   setup { Sham.reset }
+end
+
+class ActionController::TestCase
+  setup :activate_authlogic
 end
 
 class Test::Unit::TestCase

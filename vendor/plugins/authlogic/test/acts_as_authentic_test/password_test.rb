@@ -22,6 +22,24 @@ module ActsAsAuthenticTest
       assert_equal :password_salt, User.password_salt_field
     end
     
+    def test_ignore_blank_passwords_config
+      assert User.ignore_blank_passwords
+      assert Employee.ignore_blank_passwords
+      
+      User.ignore_blank_passwords = false
+      assert !User.ignore_blank_passwords
+      User.ignore_blank_passwords true
+      assert User.ignore_blank_passwords
+    end
+    
+    def test_check_passwords_against_database
+      assert User.check_passwords_against_database
+      User.check_passwords_against_database = false
+      assert !User.check_passwords_against_database
+      User.check_passwords_against_database true
+      assert User.check_passwords_against_database
+    end
+    
     def test_validate_password_field_config
       assert User.validate_password_field
       assert Employee.validate_password_field
@@ -44,7 +62,7 @@ module ActsAsAuthenticTest
     end
     
     def test_validates_confirmation_of_password_field_options_config
-      default = {:minimum => 4, :if => "#{User.password_salt_field}_changed?".to_sym}
+      default = {:if => :require_password?}
       assert_equal default, User.validates_confirmation_of_password_field_options
       assert_equal default, Employee.validates_confirmation_of_password_field_options
       
@@ -85,48 +103,15 @@ module ActsAsAuthenticTest
       assert_equal [], User.transition_from_crypto_providers
     end
     
-    def test_act_like_restful_authentication_config
-      assert !User.act_like_restful_authentication
-      assert !Employee.act_like_restful_authentication
-      
-      User.act_like_restful_authentication = true
-      assert User.act_like_restful_authentication
-      assert_equal Authlogic::CryptoProviders::Sha1, User.crypto_provider
-      assert defined?(::REST_AUTH_SITE_KEY)
-      assert_equal 1, Authlogic::CryptoProviders::Sha1.stretches
-
-      User.act_like_restful_authentication false
-      assert !User.act_like_restful_authentication
-      
-      User.crypto_provider = Authlogic::CryptoProviders::Sha512
-      User.transition_from_crypto_providers = []
-    end
-    
-    def test_transition_from_restful_authentication_config
-      assert !User.transition_from_restful_authentication
-      assert !Employee.transition_from_restful_authentication
-      
-      User.transition_from_restful_authentication = true
-      assert User.transition_from_restful_authentication
-      assert defined?(::REST_AUTH_SITE_KEY)
-      assert_equal 1, Authlogic::CryptoProviders::Sha1.stretches
-      
-      User.transition_from_restful_authentication false
-      assert !User.transition_from_restful_authentication
-      
-      User.crypto_provider = Authlogic::CryptoProviders::Sha512
-      User.transition_from_crypto_providers = []
-    end
-    
     def test_validates_length_of_password
       u = User.new
       u.password_confirmation = "test2"
       assert !u.valid?
-      assert u.errors.on(:password)
+      assert u.errors[:password].size > 0
       
       u.password = "test"
       assert !u.valid?
-      assert !u.errors.on(:password_confirmation)
+      assert u.errors[:password_confirmation].size == 0
     end
     
     def test_validates_confirmation_of_password
@@ -134,34 +119,31 @@ module ActsAsAuthenticTest
       u.password = "test"
       u.password_confirmation = "test2"
       assert !u.valid?
-      assert u.errors.on(:password)
+      assert u.errors[:password].size > 0
       
       u.password_confirmation = "test"
       assert !u.valid?
-      assert !u.errors.on(:password)
+      assert u.errors[:password].size == 0
     end
     
     def test_validates_length_of_password_confirmation
       u = User.new
       
-      assert !u.valid?
-      assert u.errors.on(:password_confirmation)
-      
       u.password = "test"
       u.password_confirmation = ""
       assert !u.valid?
-      assert u.errors.on(:password_confirmation)
+      assert u.errors[:password_confirmation].size > 0
       
       u.password_confirmation = "test"
       assert !u.valid?
-      assert !u.errors.on(:password_confirmation)
+      assert u.errors[:password_confirmation].size == 0
       
       ben = users(:ben)
       assert ben.valid?
       
       ben.password = "newpass"
       assert !ben.valid?
-      assert ben.errors.on(:password_confirmation)
+      assert ben.errors[:password_confirmation].size > 0
       
       ben.password_confirmation = "newpass"
       assert ben.valid?
@@ -181,6 +163,26 @@ module ActsAsAuthenticTest
       transition_password_to(Authlogic::CryptoProviders::BCrypt, ben)
       transition_password_to(Authlogic::CryptoProviders::Sha1, ben, [Authlogic::CryptoProviders::Sha512, Authlogic::CryptoProviders::BCrypt])
       transition_password_to(Authlogic::CryptoProviders::Sha512, ben, [Authlogic::CryptoProviders::Sha1, Authlogic::CryptoProviders::BCrypt])
+    end
+    
+    def test_checks_password_against_database
+      ben = users(:ben)
+      ben.password = "new pass"
+      assert !ben.valid_password?("new pass")
+      assert ben.valid_password?("benrocks")
+    end
+    
+    def test_checks_password_against_database_and_always_fails_on_new_records
+      user = User.new
+      user.password = "new pass"
+      assert !user.valid_password?("new pass")
+    end
+    
+    def test_checks_password_against_object
+      ben = users(:ben)
+      ben.password = "new pass"
+      assert ben.valid_password?("new pass", false)
+      assert !ben.valid_password?("benrocks", false)
     end
     
     def test_reset_password

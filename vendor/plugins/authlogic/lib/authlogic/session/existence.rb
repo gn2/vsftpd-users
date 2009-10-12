@@ -20,7 +20,7 @@ module Authlogic
         # A convenince method. The same as:
         #
         #   session = UserSession.new(*args)
-        #   session.create
+        #   session.save
         #
         # Instead you can do:
         #
@@ -28,12 +28,14 @@ module Authlogic
         def create(*args, &block)
           session = new(*args)
           session.save(&block)
+          session
         end
         
         # Same as create but calls create!, which raises an exception when validation fails.
         def create!(*args)
           session = new(*args)
           session.save!
+          session
         end
       end
       
@@ -42,13 +44,15 @@ module Authlogic
         # the user to authenticate again if it is needed.
         def destroy
           before_destroy
+          save_record
           errors.clear
           @record = nil
           after_destroy
           true
         end
         
-        # Returns true if the session has not been saved yet.
+        # Returns true if the session is new, meaning no action has been taken on it and a successful save
+        # has not taken place.
         def new_session?
           new_session != false
         end
