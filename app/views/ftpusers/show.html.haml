@@ -9,9 +9,9 @@
   %span.value= h current_object.login
 %p
   %span.key Password:
-  %span.value#show_link
-    %span{:style => "font-size: inherit"}= link_to 'Show me:', '#', :onclick => "document.getElementById('password').style.display='';document.getElementById('show_link').style.display='none';"
-  %span.value#password{:style => "display: none;"}
+  / %span.value#show_link
+  /   %span{:style => "font-size: inherit"}= link_to 'Show me:', '#', :onclick => "document.getElementById('password').style.display='';document.getElementById('show_link').style.display='none';"
+  %span.value#password{:style => "display: ndone;"}
     %span{:style => "font-size: inherit"}=link_to 'Hide me:', '#', :onclick => "document.getElementById('password').style.display='none';document.getElementById('show_link').style.display='';"
     =h current_object.password
   %noscript

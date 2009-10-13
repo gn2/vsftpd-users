@@ -33,8 +33,14 @@ class Ftpuser < ActiveRecord::Base
     transitions :to => :deleted, :from => [:passive, :pending, :verified, :active, :inactive, :banned]
   end
   
-  # def password= (:p)
-  #   self.password = :p
-  # end
+  def update_password(params)
+    @changed_password = true
+    update_attributes(:password => params[:password], :password_confirmation => params[:password_confirmation])
+  end
+
+  # Some methods used by observers
+  def password_recently_changed?
+    @changed_password
+  end
 
 end

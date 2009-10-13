@@ -59,5 +59,7 @@ class User < ActiveRecord::Base
   end
   
   # Class methods
-  
+  def self.admins
+    self.find(:all, :conditions => {:is_admin => 1})
+  end
 end

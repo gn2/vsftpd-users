@@ -1,8 +1,10 @@
+require "digest/md5"
+
 class FtpusersController < ApplicationController
   before_filter :require_admin, :only => [:new, :create, :edit, :update, :destroy]
-  before_filter :require_user, :only => [:show, :edit_password, :update_password, :index]
-  
-  before_filter :current_object, :only => [:edit_password, :update_password, :show]
+  before_filter :require_user
+  before_filter :require_authorised_user, :except => [:new, :create, :index]
+  before_filter :encrypt_password, :only => [:create, :update_password]
   
   make_resourceful do
     actions :all
@@ -17,32 +19,33 @@ class FtpusersController < ApplicationController
   end
 
   def edit_password
-    @ftpuser = current_object
   end
   
   def update_password
-    @ftpuser = current_object
-    
     respond_to do |format|
-      if @ftpuser.update_attributes(params[:ftpuser])
+      if current_object.update_password(params[:ftpuser])
         flash[:notice] = 'Password has been successfully updated.'
         
-        format.html { redirect_to(@ftpuser) }
+        format.html { redirect_to(current_object) }
         format.xml  { head :ok }
       else
-        format.html { render :action => "edit_password" }
-        format.xml  { render :xml => @ftpuser.errors, :status => :unprocessable_entity }
+        format.html { render :action => :edit_password }
+        format.xml  { render :xml => current_object.errors, :status => :unprocessable_entity }
       end
     end
   end
   
   private
-  def current_object
-    if Ftpuser.find(params[:id]).users.exists?(current_user) || current_user.is_admin?
-      @current_object = Ftpuser.find(params[:id])
-    else
+  def require_authorised_user
+    ftpuser = Ftpuser.find(params[:id])
+    if !ftpuser || (!ftpuser.users.exists?(current_user) && !current_user.is_admin?)
       flash[:notice] = "You cannot access this FTP account"
       redirect_to ftpusers_url
     end
+  end
+  
+  def encrypt_password
+    params[:ftpuser][:password] = Digest::MD5.hexdigest(params[:ftpuser][:password]) if params[:ftpuser][:password] != ''
+    params[:ftpuser][:password_confirmation] = Digest::MD5.hexdigest(params[:ftpuser][:password_confirmation]) if params[:ftpuser][:password_confirmation] != ''
   end
 end

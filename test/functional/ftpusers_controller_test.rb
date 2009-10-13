@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 #require 'ftpuser'
- require 'ftpusers_controller'
+require 'ftpusers_controller'
 
 # Re-raise errors caught by the controller.
  class FtpusersController; def rescue_action(e) raise e end; end
