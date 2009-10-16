@@ -1,5 +1,5 @@
 %h2.page_title 
-  The servers
+  The server
   %ul
     %li= link_to "Create a new server", new_server_path
     %li= link_to "Back to my account", account_path
@@ -32,4 +32,4 @@
   Users linked to this server
   
 %p
-  To be continued...
+  = render :partial => "ftpusers/ftpusers_table", :locals => {:current_objects => current_object.ftpusers, :no_server_col => true}

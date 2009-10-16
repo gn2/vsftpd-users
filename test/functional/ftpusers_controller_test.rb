@@ -6,7 +6,7 @@ require 'ftpusers_controller'
  class FtpusersController; def rescue_action(e) raise e end; end
 
 class FtpusersControllerTest < ActionController::TestCase
-  context "FTPUsersController as USER" do
+  context "FTPUsersController as USER belonging to the Ftpuser's group" do
     setup do
       UserSession.create(users(:one))
       
@@ -24,6 +24,26 @@ class FtpusersControllerTest < ActionController::TestCase
       should_respond_with :success
       should_render_template :show
       should_not_set_the_flash
+    end
+  end
+  
+  context "FTPUsersController as USER not belonging to the Ftpuser's group" do
+    setup do
+      UserSession.create(users(:two))
+      
+      # @controller = FtpusersController.new
+      # @request    = ActionController::TestRequest.new
+      # @response   = ActionController::TestResponse.new
+    end
+
+    context "on GET to :show" do
+      setup do
+        get :show, :id => 1
+      end
+
+      should_not_assign_to :ftpuser
+      should_redirect_to("the user's account page") { ftpusers_path()}
+      should_set_the_flash_to(/cannot access/i)
     end
   end
   
@@ -61,7 +81,7 @@ class FtpusersControllerTest < ActionController::TestCase
     context "on POST to :create" do
       setup do
         @old_count = Ftpuser.count
-        post :create, :ftpuser => {:login => Sham.login, :password => Sham.password, :group => Group.new, :server => Server.new}
+        post :create, :ftpuser => {:login => Sham.login, :password => "123456", :password_confirmation => "123456", :group => Group.new, :server => Server.new}
       end
     
       should_assign_to :ftpuser

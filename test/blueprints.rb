@@ -21,10 +21,15 @@ User.blueprint do
   password_confirmation { password }
 end
 
-User.blueprint(:active) do
+User.blueprint(:user_active) do
   state { "active" }
+  is_admin { 0 }
 end
 
+User.blueprint(:admin_active) do
+  state { "active" }
+  is_admin { 1 }
+end
 
 Ftpuser.blueprint do
   login { Sham.login }

@@ -21,18 +21,23 @@
         %th{:scope => "col"} Last IP
         %th{:scope => "col"} Login count
         %th{:scope => "col"} Is admin?
-    %tbody
-      -if (current_objects && current_objects.length > 0)
-        -current_objects.each_with_index do |object, index|
+      %tbody
+        -if (current_objects && current_objects.length > 0)
+          -current_objects.each_with_index do |object, index|
+            %tr
+              %td= h object.id
+              %td= h object.name
+              %td= h object.login
+              %td= h object.email
+              %td= h object.company_id
+              %td= h object.state
+              %td= "#{distance_of_time_in_words_to_now(object.created_at)} ago"
+              %td= "#{distance_of_time_in_words_to_now(object.last_login_at)} ago"
+              %td= h object.last_login_ip
+              %td= h object.login_count
+              %td= h object.is_admin
+        -else
           %tr
-            %td= h object.id
-            %td= h object.name
-            %td= h object.login
-            %td= h object.email
-            %td= h object.company_id
-            %td= h object.state
-            %td= "#{distance_of_time_in_words_to_now(object.created_at)} ago"
-            %td= "#{distance_of_time_in_words_to_now(object.last_login_at)} ago"
-            %td= h object.last_login_ip
-            %td= h object.login_count
-            %td= h object.is_admin
+            %td.empty{:colspan => "11"} 
+              No users found. 
+              = link_to "Create one?", new_user_path

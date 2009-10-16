@@ -29,19 +29,23 @@ class ServerTest < Test::Unit::TestCase
       assert @server.save
     end
   end
-  
-  # def test_invalid_server_with_empty_attributes
-  #   server = Server.new
-  #   assert !server.valid?, "Saved the Server with empty attributes"
-  #   assert server.errors.invalid?(:name), "Empty name"
-  #   assert server.errors.invalid?(:description), "Empty description"
-  #   assert server.errors.invalid?(:ip_address), "Empty ip_address"
-  # end
-  # 
-  # def test_invalid_server_with_wrong_ip_address
-  #   server = Server.new(:name => "test_name")
-  #   
-  #   assert_match "#^[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}$#", server.ip_address, "Saved the Server with wrong IP address"
-  #   
-  # end
+
+  context "A deleted Server" do
+    setup do
+      @server = Server.make
+      @ftpuser = Ftpuser.make
+      @ftpuser.server = @server
+      @ftpuser.save
+      @server.destroy
+    end
+    
+    should "be properly deleted" do
+      assert_not_equal @server.deleted_at, nil
+    end
+    
+    should "delete his attached FTPUsers" do
+      assert_not_equal @ftpuser.deleted_at, nil
+    end
+  end
+
 end

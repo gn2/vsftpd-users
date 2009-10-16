@@ -1,31 +1,40 @@
 %h2.page_title 
   Show a FTP User
   %ul
-    %li= link_to "Create a new FTP user", new_ftpuser_path
+    -if current_user.is_admin?
+      %li= link_to "Create a new FTP user", new_ftpuser_path
     %li= link_to "Back to my account", account_path
 
 %p
   %span.key Login: 
   %span.value= h current_object.login
-%p
-  %span.key Password:
-  / %span.value#show_link
-  /   %span{:style => "font-size: inherit"}= link_to 'Show me:', '#', :onclick => "document.getElementById('password').style.display='';document.getElementById('show_link').style.display='none';"
-  %span.value#password{:style => "display: ndone;"}
-    %span{:style => "font-size: inherit"}=link_to 'Hide me:', '#', :onclick => "document.getElementById('password').style.display='none';document.getElementById('show_link').style.display='';"
-    =h current_object.password
-  %noscript
-    %span.value= h current_object.password
+/ %p
+/   %span.key Password:
+/   %span.value#show_link
+/     =#%span{:style => "font-size: inherit"}= link_to 'Show me:', '#', :onclick => "document.getElementById('password').style.display='';document.getElementById('show_link').style.display='none';"
+/   %span.value#password{:style => "display: ndone;"}
+/     =#%span{:style => "font-size: inherit"}=link_to 'Hide me:', '#', :onclick => "document.getElementById('password').style.display='none';document.getElementById('show_link').style.display='';"
+/     =#h current_object.password
+/   %noscript
+/     =#%span.value= h current_object.password
 %p
   %span.key Group: 
   %span.value
-    %strong= h current_object.group.name
+    %strong
+      -if current_user.is_admin?
+        =link_to current_object.group.name, current_object.group
+      -else
+        =h current_object.group.name
     %br
     = h current_object.group.description
 %p
   %span.key Server: 
   %span.value
-    %strong= h current_object.server.name
+    %strong
+      -if current_user.is_admin?
+        =link_to current_object.server.name, current_object.server
+      -else
+        = h current_object.server.name
     %br
     = h current_object.server.description
     %br

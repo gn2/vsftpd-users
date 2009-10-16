@@ -5,6 +5,8 @@ one:
   created_at: 2009-03-31 23:48:41
   updated_at: 2009-03-31 23:48:41
   state: active
+  group_id: 1
+  server_id: 1
 two:
   id: 2
   login: MyString
@@ -12,3 +14,5 @@ two:
   created_at: 2009-03-31 23:48:41
   updated_at: 2009-03-31 23:48:41
   state: active
+  group_id: 1
+  server_id: 1

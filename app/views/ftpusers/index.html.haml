@@ -2,3 +2,6 @@
   Browse all FTP accounts
   %ul
     %li= link_to "Back to my account", account_path
+    
+    
+= render :partial => "ftpusers/ftpusers_table", :locals => {:current_objects => @ftpusers}

@@ -8,6 +8,9 @@ class User < ActiveRecord::Base
   # Validations
   validates_presence_of :name
   validates_uniqueness_of :login, :email
+  #validates_numericality_of :is_admin, :only_integer => true, :greater_than_or_equal_to => 0, :less_than_or_equal_to => 1
+  #validates_inclusion_of :is_admin, :in => %w(0 1)
+  #validates_format_of :is_admin, :with => /\A["0"]\z/
   
   # Relationships
   has_and_belongs_to_many :groups
@@ -17,27 +20,27 @@ class User < ActiveRecord::Base
   aasm_initial_state :pending
   
   aasm_state :pending
-  aasm_state :active
+  aasm_state :active, :enter => :do_activate
   aasm_state :inactive
   aasm_state :banned
   aasm_state :deleted
   
   aasm_event :activate do
-    transitions :to => :active, :from => [:pending, :inactive]
+    transitions :to => :active, :from => [:pending, :inactive, :banned]
   end
   aasm_event :inactivate do
-    transitions :to => :inactive, :from => [:passive, :pending, :verified, :active, :deleted, :banned]
+    transitions :to => :inactive, :from => [:pending, :active, :banned]
   end
   aasm_event :ban do
-    transitions :to => :banned, :from => [:passive, :pending, :verified, :active, :inactive, :deleted]
+    transitions :to => :banned, :from => [:pending, :active, :inactive]
   end
   aasm_event :delete do
-    transitions :to => :deleted, :from => [:passive, :pending, :verified, :active, :inactive, :banned]
+    transitions :to => :deleted, :from => [:pending, :active, :inactive, :banned]
   end
 
   def do_activate
     @activated = true    
-    self.deleted_at = self.perishable_token = nil
+    self.deleted_at = nil
   end
   
   # Some methods used by observers

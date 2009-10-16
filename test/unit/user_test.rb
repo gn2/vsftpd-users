@@ -5,11 +5,8 @@ class UserTest < Test::Unit::TestCase
   should_be_paranoid
   
   should_not_allow_mass_assignment_of :is_admin
-  should_allow_values_for :is_admin, true, false, "bla"
-  
-  should "be a boolean" do
-     assert self.is_admin.is_boolean
-  end
+  should_allow_values_for :is_admin, 0, 1
+  should_not_allow_values_for :is_admin, "bla", 3
    
   should_validate_presence_of :name
   should_validate_uniqueness_of :email, :login
@@ -23,7 +20,7 @@ class UserTest < Test::Unit::TestCase
   context "A newly created user" do
     setup do 
       User.delete_all
-      @user = User.make(:with_password)
+      @user = User.make
     end
 
     should "have a pending status" do
@@ -34,7 +31,7 @@ class UserTest < Test::Unit::TestCase
   context "An active user" do
     setup do 
       User.delete_all
-      @user = User.make(:active)
+      @user = User.make(:user_active)
     end
 
     should "repond to is_admin?" do
@@ -42,8 +39,75 @@ class UserTest < Test::Unit::TestCase
     end
     
     should "not be an admin" do
-      assert_not_equal @user.is_admin?, true
+      assert !@user.is_admin?
     end
     
   end
+  
+  context "An active admin" do
+    setup do 
+      User.delete_all
+      @user = User.make(:admin_active)
+    end
+
+    should "repond to is_admin?" do
+      assert_equal @user.is_admin?, @user.is_admin
+    end
+    
+    should "be an admin" do
+      assert @user.is_admin?
+    end
+  end
+  
+  context "A recently activated user" do
+    setup do
+      @user = User.make
+      @user.activate!
+    end
+    
+    should "be recognized as recently activated" do
+      assert @user.recently_activated?
+    end
+    
+    should "not be deleted" do
+      assert_nil @user.deleted_at
+    end
+  end
+  
+  context "A User's FTPUsers list" do
+    setup do
+      @user = User.make(:user_active)
+      @group = Group.make
+      @ftpuser1 = Ftpuser.make
+      @ftpuser2 = Ftpuser.make
+      @ftpuser1.group = @group
+      @user.groups << @group
+      @ftpuser1.save
+      #@user.save
+    end
+    
+    should "contain 'FTPUser1'" do
+      assert @user.ftpusers.include?(@ftpuser1)
+    end
+    
+    should "not contain 'FTPUser2'" do
+      assert !@user.ftpusers.include?(@ftpuser2)
+    end
+  end
+  
+  context "The admins list" do
+    setup do
+      @admin = User.make(:admin_active)
+      @user = User.make(:user_active)
+    end
+  
+    should "contain 'admin'" do
+      assert User.admins.include?(@admin)
+    end
+    
+    should "not contain 'user'" do
+      assert !User.admins.include?(@user)
+    end
+  end
+  
 end

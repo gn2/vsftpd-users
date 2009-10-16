@@ -16,6 +16,7 @@ class FtpusersController < ApplicationController
       @servers  = Server.all.collect {|server| [server.name.to_s, server.id.to_s] }
       @groups    = Group.all.collect {|group| [group.name.to_s, group.id.to_s] }
     end
+    
   end
 
   def edit_password
@@ -46,6 +47,15 @@ class FtpusersController < ApplicationController
   
   def encrypt_password
     params[:ftpuser][:password] = Digest::MD5.hexdigest(params[:ftpuser][:password]) if params[:ftpuser][:password] != ''
-    params[:ftpuser][:password_confirmation] = Digest::MD5.hexdigest(params[:ftpuser][:password_confirmation]) if params[:ftpuser][:password_confirmation] != ''
+    params[:ftpuser][:password_confirmation] = Digest::MD5.hexdigest(params[:ftpuser][:password_confirmation]) if (params[:ftpuser][:password_confirmation] != '' && params[:ftpuser][:password] != '')
+  end
+  
+  private
+  def current_objects
+    if current_user.is_admin?
+      return Ftpuser.all
+    else
+      return current_user.ftpusers
+    end
   end
 end

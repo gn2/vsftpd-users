@@ -6,7 +6,7 @@ class UsersController; def rescue_action(e) raise e end; end
 
 class UsersControllerTest < ActionController::TestCase
 
-  context "Users" do
+  context "Users:" do
     context "on GET to :new" do
       setup do
         get :new
@@ -70,26 +70,39 @@ class UsersControllerTest < ActionController::TestCase
         should "change the login" do
           assert_equal((assigns :user).login, "new_login")
         end
-        should "not change the password" do
-          assert_equal((assigns :user).password, "a30b0e305df0d0f34e0c2b1952ca8e99d6ad03b784794f11aec460361d76c85fa3bbe87fa5e981ea67e6d555d3a3f5d46b6ee57b5d2358861e96aac950cfa99d")
-        end
       end
 
-      context "on GET to :show" do
+      context "on GET to :show for an admin" do
         setup do
           UserSession.create(users(:ben))
-          get :show, :id => users(:ben).id
+          get :show, :id => users(:ben).id, :num_page => 1
         end
 
         should_assign_to :servers
         should "load every server" do
-          assert_equal(assigns(:servers), Server.all)
+          assert_equal(assigns(:servers), Server.paginate(:page => @num_page, :order => 'created_at DESC', :per_page => 5))
         end
         should_assign_to :ftpusers
-        should "load load the user's ftpusers" do
-          assert_equal(assigns(:ftpusers), users(:ben).ftpusers)
+        should "load all the ftpusers" do
+          assert_equal(assigns(:ftpusers), Ftpuser.paginate(:page => @num_page, :order => 'created_at DESC', :per_page => 5))
         end
-        should_assign_to :servers
+        should_respond_with :success
+        should_render_template :show
+        should_not_set_the_flash
+      end
+      
+      context "on GET to :show for a non-admin user" do
+        setup do
+          UserSession.create(users(:one))
+          get :show, :id => users(:one).id, :num_page => 1
+        end
+
+        should_not_assign_to :servers
+        
+        should_assign_to :ftpusers
+        should "load the user's ftpusers" do
+          assert_equal(assigns(:ftpusers), users(:one).ftpusers.paginate(:page => @num_page, :order => 'created_at DESC', :per_page => 5))
+        end
         should_respond_with :success
         should_render_template :show
         should_not_set_the_flash

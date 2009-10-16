@@ -32,13 +32,21 @@
     %li= link_to "Browse all FTP accounts", ftpusers_path
     %li= link_to "Create a new FTP account", new_ftpuser_path
 
+.paginate
+  = will_paginate @ftpusers, :param_name => :ftpusers_page
 = render :partial => "ftpusers/ftpusers_table", :locals => {:current_objects => @ftpusers}
+.paginate
+  = will_paginate @ftpusers, :param_name => :ftpusers_page
 
+-if current_user.is_admin?
+  %h3.subtitle
+    The servers
+    %ul
+      %li= link_to "Browse all servers", servers_path
+      %li= link_to "Create a new server", new_server_path
 
-%h3.subtitle
-  The servers
-  %ul
-    %li= link_to "Browse all servers", servers_path
-    %li= link_to "Create a new server", new_server_path
-
-= render :partial => "servers/servers_table", :locals => {:current_objects => @servers}
+  .paginate
+    = will_paginate @servers, :param_name => :servers_page
+  = render :partial => "servers/servers_table", :locals => {:current_objects => @servers}
+  .paginate
+    = will_paginate @servers, :param_name => :servers_page
