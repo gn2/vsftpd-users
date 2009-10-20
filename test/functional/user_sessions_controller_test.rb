@@ -34,7 +34,7 @@ class UserSessionsControllerTest < ActionController::TestCase
         assert_equal users(:ben), user_session.user
       end
       
-      should_redirect_to("the user account page") { account_path }
+      should_redirect_to("the user's homepage") { home_path }
       should_set_the_flash_to(/successfully logged in/i)
     end
     

@@ -5,8 +5,8 @@ class UserTest < Test::Unit::TestCase
   should_be_paranoid
   
   should_not_allow_mass_assignment_of :is_admin
-  should_allow_values_for :is_admin, 0, 1
-  should_not_allow_values_for :is_admin, "bla", 3
+  # should_allow_values_for :is_admin, 0, 1
+  # should_not_allow_values_for :is_admin, "bla", 3
    
   should_validate_presence_of :name
   should_validate_uniqueness_of :email, :login

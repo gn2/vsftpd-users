@@ -1,0 +1,36 @@
+%table{:cellspacing => "0", :summary => "Groups"}  
+  %colgroup
+    %col#num_col
+    %col#name_col
+    %col#ftpuser_count_col
+    %col#user_count_col
+    %col#created_col
+    %col#updated_col
+    %col#action
+  %thead
+    %tr
+      %th{:scope => "col"} #
+      %th{:scope => "col"} Name
+      %th{:scope => "col"} FTP User count
+      %th{:scope => "col"} User count
+      %th{:scope => "col"} Created
+      %th{:scope => "col"} Updated
+      %th{:scope => "col"} Action
+  %tbody
+    -if (current_objects && current_objects.length > 0)
+      -current_objects.each_with_index do |object, index|
+        %tr{:class => (index%2==0 ? "even" : "odd")}
+          %td= index + 1
+          %td= link_to h(object.name), group_path(object)
+          %td= pluralize(object.ftpusers.size, "FTP user")
+          %td= pluralize(object.users.size, "user")
+          %td= "#{distance_of_time_in_words_to_now(object.created_at)} ago"
+          %td= "#{distance_of_time_in_words_to_now(object.updated_at)} ago"
+          %td
+            =link_to 'edit', edit_group_path(object), :class => "button"            
+            =link_to 'delete', group_path(object), {:confirm => 'Are you sure?', :method => :delete, :class => "button delete"}
+    -else
+      %tr
+        %td.empty{:colspan => "7"} 
+          No servers found. 
+          = link_to "Create one?", new_group_path

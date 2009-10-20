@@ -1,2 +1,42 @@
+%h2.page_title 
+  The group
+  %ul
+    %li= link_to "Create a new group", new_group_path
+    %li= link_to "Back to my account", account_path
+
 %p
-  =link_to 'Delete this group', group_path(current_object), {:confirm => 'Are you sure?', :method => :delete}
+  %span.key Name: 
+  %span.value= h current_object.name
+%p
+  %span.key Description: 
+  %span.value= nl2br(h current_object.description)
+%p
+  %span.key FTP User count: 
+  %span.value= pluralize(current_object.ftpusers.size, "FTP user")
+%p
+  %span.key User count: 
+  %span.value= pluralize(current_object.users.size, "user")
+%p
+  %span.key Created: 
+  %span.value= "#{distance_of_time_in_words_to_now(current_object.created_at)} ago"
+%p
+  %span.key Updated: 
+  %span.value= "#{distance_of_time_in_words_to_now(current_object.updated_at)} ago"
+
+%p
+  =link_to 'Edit', edit_group_path(current_object), :class => "button"
+  =link_to 'Delete', group_path(current_object), {:confirm => 'Are you sure?', :method => :delete, :class => "alternative_button"}
+
+
+%h3.subtitle
+  FTP Users linked to this server
+
+%p
+  = render :partial => "ftpusers/ftpusers_table", :locals => {:current_objects => current_object.ftpusers, :no_group_col => true}
+  
+  
+%h3.subtitle
+  Users linked to this server
+
+%p
+  = render :partial => "users/users_table", :locals => {:current_objects => current_object.users}

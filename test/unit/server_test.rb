@@ -39,12 +39,8 @@ class ServerTest < Test::Unit::TestCase
       @server.destroy
     end
     
-    should "be properly deleted" do
-      assert_not_equal @server.deleted_at, nil
-    end
-    
-    should "delete his attached FTPUsers" do
-      assert_not_equal @ftpuser.deleted_at, nil
+    should "delete his attached FTP Users" do
+      assert_raise(ActiveRecord::RecordNotFound) { Ftpuser.find(@ftpuser.id) }
     end
   end
 

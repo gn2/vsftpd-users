@@ -4,7 +4,8 @@
     %col#login_col
     -if !defined?no_server_col || !no_server_col
       %col#server_col
-    %col#group_col
+    -if !defined?no_group_col || !no_group_col
+      %col#group_col
     %col#user_count_col
     %col#state_col
     %col#created_col
@@ -17,7 +18,8 @@
       %th{:scope => "col"} Login
       -if !defined?no_server_col || !no_server_col
         %th{:scope => "col"} Server
-      %th{:scope => "col"} Group
+      -if !defined?no_group_col || !no_group_col
+        %th{:scope => "col"} Group
       %th{:scope => "col"} User count
       %th{:scope => "col"} State
       %th{:scope => "col"} Created at
@@ -35,10 +37,11 @@
               %td= link_to h(object.server.name), server_path(object.server)
             -else
               %td= object.server.name
-          -if current_user.is_admin?
-            %td= link_to h(object.group.name), group_path(object.group)
-          -else
-            %td= object.group.name
+          -if !defined?no_group_col || !no_group_col
+            -if current_user.is_admin?
+              %td= link_to h(object.group.name), group_path(object.group)
+            -else
+              %td= object.group.name
           -if object.users
             %td= pluralize(object.users.size, "user")
           -else

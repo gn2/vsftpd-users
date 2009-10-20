@@ -1,5 +1,7 @@
-%h1 Listing users
+%h2.page_title
+  Listing users
+  %ul
+    %li= link_to "Create a new user", new_user_path
+    %li= link_to "Back to my account", account_path
 
-= render :partial => 'user', :collection => current_objects
-
-= link_to 'New user', new_object_path 
+= render :partial => 'users_table', :locals => {:current_objects => @current_objects}

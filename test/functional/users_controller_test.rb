@@ -34,12 +34,12 @@ class UsersControllerTest < ActionController::TestCase
     
     context "Logged User" do
       setup do
-        UserSession.create(users(:ben))
+        UserSession.create(users(:one))
       end
       
       context "on GET to :edit allowed on his own account" do
         setup do
-          get :edit, :id => users(:ben).id
+          get :edit, :id => users(:one).id
         end
       
         should_assign_to :user
@@ -47,19 +47,24 @@ class UsersControllerTest < ActionController::TestCase
         should_respond_with :success
         should_not_set_the_flash
       end
-  
+    
       context "on GET to :edit forbidden on another account" do
         setup do
-          get :edit, :id => users(:one).id
+          get :edit, :id => users(:two).id
         end
         
-        should_redirect_to("the real user account") { user_path(users(:ben))}
-        should_set_the_flash_to(/forbidden/i)
+        should_redirect_to("the real user homepage") { home_path()}
+        should_set_the_flash_to(/forbidden|cannot access/i)
+        
+        should_assign_to :current_user
+        should "load the current user" do
+          assert_equal((assigns :current_user), users(:one))
+        end
       end
       
       context "on PUT to :update" do
         setup do
-          put :update, :id => users(:ben).id, :user => {:name => "new name", :login => "new_login", :email => "new_user@example.net", :password => "123456", :password_confirmation => "123456"}
+          put :update, :id => users(:one).id, :user => {:name => "new name", :login => "new_login", :email => "new_user@example.net", :password => "123456", :password_confirmation => "123456"}
         end
         should_assign_to :user
         should_redirect_to("the updated user") { user_path(assigns :user)}
@@ -71,51 +76,93 @@ class UsersControllerTest < ActionController::TestCase
           assert_equal((assigns :user).login, "new_login")
         end
       end
-
-      context "on GET to :show for an admin" do
+      
+      context "on GET to :update forbidden on another account" do
         setup do
-          UserSession.create(users(:ben))
-          get :show, :id => users(:ben).id, :num_page => 1
+          put :update, :id => users(:two).id, :user => {:name => "new name", :login => "new_login", :email => "new_user@example.net", :password => "123456", :password_confirmation => "123456"}
+        end
+        
+        should_redirect_to("the real user homepage") { home_path()}
+        should_set_the_flash_to(/forbidden|cannot access/i)
+        
+        should_assign_to :current_user
+        should "load the current user" do
+          assert_equal((assigns :current_user), users(:one))
+        end
+      end
+      
+      context "on GET to :show" do
+        setup do
+          get :show, :id => users(:one).id
         end
 
-        should_assign_to :servers
-        should "load every server" do
-          assert_equal(assigns(:servers), Server.paginate(:page => @num_page, :order => 'created_at DESC', :per_page => 5))
-        end
-        should_assign_to :ftpusers
-        should "load all the ftpusers" do
-          assert_equal(assigns(:ftpusers), Ftpuser.paginate(:page => @num_page, :order => 'created_at DESC', :per_page => 5))
-        end
+        should_not_assign_to :servers
+        should_not_assign_to :groups
+        should_not_assign_to :ftpusers
+
         should_respond_with :success
         should_render_template :show
         should_not_set_the_flash
       end
       
-      context "on GET to :show for a non-admin user" do
+      context "on GET to :show forbidden on another account" do
         setup do
-          UserSession.create(users(:one))
-          get :show, :id => users(:one).id, :num_page => 1
+          get :show, :id => users(:two).id
+        end
+
+        should_redirect_to("the real user homepage") { home_path()}
+        should_set_the_flash_to(/forbidden|cannot access/i)
+        
+        should_assign_to :current_user
+        should "load the current user" do
+          assert_equal((assigns :current_user), users(:one))
+        end
+      end
+    end
+    
+    context "An Admin" do
+      setup do
+        UserSession.create(users(:ben))
+      end
+      
+      context "on GET to :show" do
+        setup do
+          get :show, :id => users(:ben).id
         end
 
         should_not_assign_to :servers
+        should_not_assign_to :groups
+        should_not_assign_to :ftpusers
         
-        should_assign_to :ftpusers
-        should "load the user's ftpusers" do
-          assert_equal(assigns(:ftpusers), users(:one).ftpusers.paginate(:page => @num_page, :order => 'created_at DESC', :per_page => 5))
-        end
         should_respond_with :success
         should_render_template :show
         should_not_set_the_flash
       end
+      
+      context "on GET to :show allowed on another account" do
+        setup do
+          get :show, :id => users(:one).id
+        end
 
+        should_assign_to :user
+        should "load the wanted user" do
+          assert_equal((assigns :user), users(:one))
+        end
+        
+        should_respond_with :success
+        should_render_template :show
+        should_not_set_the_flash
+      end
+    
       context "on GET to :index" do
         setup do
           get :index
         end
-        should_assign_to :users
-        should_respond_with :success
-        should_render_template :index
-        should_not_set_the_flash
+        
+        # should_assign_to :users
+        # should_respond_with :success
+        # should_render_template :index
+        # should_not_set_the_flash
       end
 
       context "on DELETE to :destroy" do
