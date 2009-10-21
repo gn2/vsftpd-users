@@ -159,10 +159,10 @@ class UsersControllerTest < ActionController::TestCase
           get :index
         end
         
-        # should_assign_to :users
-        # should_respond_with :success
-        # should_render_template :index
-        # should_not_set_the_flash
+        should_assign_to :users
+        should_respond_with :success
+        should_render_template :index
+        should_not_set_the_flash
       end
 
       context "on DELETE to :destroy" do

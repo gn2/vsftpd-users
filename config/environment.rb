@@ -3,6 +3,11 @@
 # Specifies gem version of Rails to use when vendor/rails is not present
 RAILS_GEM_VERSION = '2.3.2' unless defined? RAILS_GEM_VERSION
 
+
+EMAILS_SUBJECT_PREFIX = '[VSFTPD] '
+EMAILS_FROM = 'Myself <me@example.net>'
+
+
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
 

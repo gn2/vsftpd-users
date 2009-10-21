@@ -1,10 +1,13 @@
 %h2.page_title VSFTPD Administration console
 
 %h3.subtitle
-  My FTP accounts
+  -if current_user.is_admin?
+    The FTP Users
+  -else
+    My FTP accounts
   %ul
-    %li= link_to "Browse all FTP accounts", ftpusers_path
-    %li= link_to "Create a new FTP account", new_ftpuser_path
+    %li= link_to "Browse all FTP users", ftpusers_path
+    %li= link_to "Create a new FTP user", new_ftpuser_path
 
 .paginate
   = will_paginate @ftpusers, :param_name => :ftpusers_page
@@ -13,6 +16,12 @@
   = will_paginate @ftpusers, :param_name => :ftpusers_page
 
 -if current_user.is_admin?
+  %h3.subtitle
+    The Users
+    %ul
+      %li= link_to "Browse all users", users_path
+      %li= link_to "Create a new user", new_user_path
+
   %h3.subtitle
     The servers
     %ul

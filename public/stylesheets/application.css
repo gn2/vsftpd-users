@@ -88,14 +88,17 @@ h3 {
       text-decoration: none; }
     #header h1.title a:hover {
       text-decoration: underline; }
-  #header .message {
+  #header .message_notice, #header .message_error {
     float: left;
-    background: #00c0ff;
     color: #2e2e2e;
     width: 55%;
     margin: -3px auto 0 auto;
     font-size: 1.4em;
     padding: 3px 5px 1px 5px; }
+  #header .message_notice {
+    background: #00c0ff; }
+  #header .message_error {
+    background: red; }
   #header .menu {
     text-align: right;
     width: 20%;

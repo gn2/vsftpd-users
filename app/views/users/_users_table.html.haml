@@ -26,13 +26,13 @@
           -current_objects.each_with_index do |object, index|
             %tr{:class => (index%2==0 ? "even" : "odd")}
               %td= h object.id
-              %td= h object.name
-              %td= h object.login
-              %td= h object.email
+              %td= link_to object.name, user_path(object)
+              %td= link_to object.login, user_path(object.id)
+              %td= mail_to "#{object.name} <#{object.email}>", object.email, :subject => EMAILS_SUBJECT_PREFIX
               %td= h object.company_id
               %td= h object.state
               %td= "#{distance_of_time_in_words_to_now(object.created_at)} ago"
-              %td= "#{distance_of_time_in_words_to_now(object.last_login_at)} ago"
+              %td= object.last_login_at ? "#{distance_of_time_in_words_to_now(object.last_login_at)} ago" : "&nbsp;"
               %td= h object.last_login_ip
               %td= h object.login_count
               %td= "Yes" if object.is_admin?

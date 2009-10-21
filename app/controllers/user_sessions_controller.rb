@@ -21,4 +21,5 @@ class UserSessionsController < ApplicationController
     flash[:notice] = "You have been successfully logged out!"
     redirect_to new_user_session_url
   end
+  
 end

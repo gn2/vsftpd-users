@@ -8,8 +8,12 @@
       %h1.title= link_to("VSFTPD Administration console", root_path)  
     
       - if !flash[:notice].blank?
-        .message
+        .message_notice
           = flash[:notice]
+        
+      - if !flash[:error].blank?
+        .message_error
+          = flash[:error]
       
       .menu
         - if !current_user

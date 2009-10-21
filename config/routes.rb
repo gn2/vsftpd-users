@@ -5,7 +5,18 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :groups
 
   map.resource :account, :controller => "users"
-  map.resources :users, :member => {:activate => :put}
+  map.resources :users,
+    :member => {
+      :activate => :put,
+      :inactivate => :put,
+      :ban => :put
+    },
+    :collection => {
+      :new_password => :get,
+      :send_password => :post,
+      :edit_password => :get,
+      :update_password => :put
+    }
   
   map.resource :user_session
   map.root :controller => "user_sessions", :action => "new"

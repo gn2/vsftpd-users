@@ -95,6 +95,31 @@ class UserTest < Test::Unit::TestCase
     end
   end
   
+  context "A User's Servers list" do
+    setup do
+      @user = User.make(:user_active)
+      @group = Group.make
+      @server1 = Server.make
+      @server2 = Server.make
+      @ftpuser1 = Ftpuser.make
+      @ftpuser2 = Ftpuser.make
+      @ftpuser1.group = @group
+      @ftpuser1.server = @server1
+      @ftpuser2.server = @server2
+      @user.groups << @group
+      @ftpuser1.save
+      @ftpuser2.save
+    end
+    
+    should "contain 'Server1'" do
+      assert @user.servers.include?(@server1)
+    end
+    
+    should "not contain 'Server2'" do
+      assert !@user.servers.include?(@server2)
+    end
+  end
+  
   context "The admins list" do
     setup do
       @admin = User.make(:admin_active)

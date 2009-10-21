@@ -5,4 +5,7 @@ module UsersHelper
     list.empty? ? "&nbsp;" : list
   end
   
+  def format_states(state)
+    state.capitalize
+  end
 end

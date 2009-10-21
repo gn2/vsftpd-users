@@ -15,8 +15,8 @@ class FtpuserMailer < ActionMailer::Base
       
   
   def setup
-    @from         = "Myself <me@example.com>"
+    @from         = EMAILS_FROM
     @sent_on      = Time.now
-    @subject      = "[VSFTPD] "
+    @subject      = EMAILS_SUBJECT_PREFIX
   end
 end

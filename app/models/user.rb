@@ -40,7 +40,7 @@ class User < ActiveRecord::Base
 
   def do_activate
     @activated = true    
-    self.deleted_at = nil
+    # self.deleted_at = nil
   end
   
   # Some methods used by observers
@@ -59,6 +59,16 @@ class User < ActiveRecord::Base
         ftpusers << group.ftpusers
       end
     end.flatten
+  end
+  
+  def servers
+    returning [] do |servers|
+      self.groups.each do |group|
+        group.ftpusers.each do |ftpuser|
+          servers << ftpuser.server
+        end
+      end
+    end.flatten.uniq
   end
   
   # Class methods
