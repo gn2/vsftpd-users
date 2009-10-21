@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090603004324) do
+ActiveRecord::Schema.define(:version => 20091021141935) do
 
   create_table "ftpusers", :force => true do |t|
     t.string   "login"
@@ -63,6 +63,7 @@ ActiveRecord::Schema.define(:version => 20090603004324) do
     t.datetime "updated_at"
     t.datetime "deleted_at"
     t.boolean  "is_admin",          :default => false
+    t.string   "perishable_token",                     :null => false
   end
 
 end

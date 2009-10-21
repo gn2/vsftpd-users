@@ -96,9 +96,9 @@ class UsersController < ApplicationController
   
   def send_password
     if @current_object = User.find_by_login(params[:user][:login])
-      respond_to do |format|
-        format.html { redirect_to(root_url) }
-      end
+      UserMailer.deliver_mail_for_a_new_password(@current_object)
+      flash[:notice] = "An email has been sent to this account email!"
+      redirect_to(root_url)
     else
       @current_object = User.new
       flash[:error] = "You provided a wrong login!"
@@ -109,6 +109,7 @@ class UsersController < ApplicationController
   end
              
   def edit_password
+     
   end
      
   def update_password

@@ -13,7 +13,7 @@ class FtpuserMailer < ActionMailer::Base
     @body         = {:recipient_name => recipient.name, :login => ftpuser.login, :server => ftpuser.server.name, :group => ftpuser.group.name}
   end
       
-  
+  private
   def setup
     @from         = EMAILS_FROM
     @sent_on      = Time.now

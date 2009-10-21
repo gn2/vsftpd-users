@@ -3,6 +3,8 @@
 # Specifies gem version of Rails to use when vendor/rails is not present
 RAILS_GEM_VERSION = '2.3.2' unless defined? RAILS_GEM_VERSION
 
+# BASE_URL = "http://www.vsftpd-users.co.uk/"
+BASE_URL = "http://localhost:3000/"
 
 EMAILS_SUBJECT_PREFIX = '[VSFTPD] '
 EMAILS_FROM = 'Myself <me@example.net>'
