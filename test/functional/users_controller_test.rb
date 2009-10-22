@@ -6,7 +6,7 @@ class UsersController; def rescue_action(e) raise e end; end
 
 class UsersControllerTest < ActionController::TestCase
 
-  context "Users:" do
+  context "UsersController:" do
     context "on GET to :new" do
       setup do
         get :new
@@ -170,7 +170,7 @@ class UsersControllerTest < ActionController::TestCase
           @nb = User.count
           delete :destroy, :id => 1
         end
-        should_assign_to :user
+        should_assign_to :current_user
         should_set_the_flash_to(/delete/i)
         should_redirect_to("the users page") { users_path }
         should "remove 1 to the counter" do

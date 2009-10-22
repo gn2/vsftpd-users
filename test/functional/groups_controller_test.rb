@@ -2,7 +2,7 @@ require 'test_helper'
 
 class GroupsControllerTest < ActionController::TestCase
 
-  context "ServersController, logged as a USER" do
+  context "GroupsController, logged as a USER" do
     setup do
       UserSession.create(users(:one))
     end
@@ -11,7 +11,7 @@ class GroupsControllerTest < ActionController::TestCase
       setup do
         get :index
       end
-      should_redirect_to("the user account page") { account_path() }
+      should_redirect_to("the user home page") { home_path() }
       should_set_the_flash_to(/(should|must).*admin/i)
     end
     
@@ -19,7 +19,7 @@ class GroupsControllerTest < ActionController::TestCase
       setup do
         get :show, :id => 1
       end
-      should_redirect_to("the user account page") { account_path() }
+      should_redirect_to("the user home page") { home_path() }
       should_set_the_flash_to(/(should|must).*admin/i)
     end
     
@@ -27,7 +27,7 @@ class GroupsControllerTest < ActionController::TestCase
       setup do
         get :edit, :id => 1
       end
-      should_redirect_to("the user account page") { account_path() }
+      should_redirect_to("the user home page") { home_path() }
       should_set_the_flash_to(/(should|must).*admin/i)
     end
     
@@ -35,7 +35,7 @@ class GroupsControllerTest < ActionController::TestCase
       setup do
         get :new
       end
-      should_redirect_to("the user account page") { account_path() }
+      should_redirect_to("the user home page") { home_path() }
       should_set_the_flash_to(/(should|must).*admin/i)
     end
     
@@ -43,7 +43,7 @@ class GroupsControllerTest < ActionController::TestCase
       setup do
         put :update, :id => 1, :group => {:name => "new name", :description => "new description"}
       end
-      should_redirect_to("the user account page") { account_path() }
+      should_redirect_to("the user home page") { home_path() }
       should_set_the_flash_to(/(should|must).*admin/i)
     end
     
@@ -51,7 +51,7 @@ class GroupsControllerTest < ActionController::TestCase
       setup do
         post :create
       end
-      should_redirect_to("the user account page") { account_path() }
+      should_redirect_to("the user home page") { home_path() }
       should_set_the_flash_to(/(should|must).*admin/i)
     end
     
@@ -59,7 +59,7 @@ class GroupsControllerTest < ActionController::TestCase
       setup do
         delete :destroy, :id => 1
       end
-      should_redirect_to("the user account page") { account_path() }
+      should_redirect_to("the user home page") { home_path() }
       should_set_the_flash_to(/(should|must).*admin/i)
     end
   end
