@@ -9,14 +9,14 @@ ActionController::Routing::Routes.draw do |map|
     :member => {
       :activate => :put,
       :inactivate => :put,
-      :ban => :put
+      :ban => :put,
+      :update_password => :put
     },
     :collection => {
       :new_password => :get,
       :send_password => :post,
-      :edit_password => :get,
-      :update_password => :put
     }
+  map.edit_password_user 'users/edit_password/:token', :controller => 'users', :action => 'edit_password'
   
   map.resource :user_session
   map.root :controller => "user_sessions", :action => "new"

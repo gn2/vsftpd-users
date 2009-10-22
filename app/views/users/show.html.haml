@@ -1,5 +1,5 @@
 %h2.page_title 
-  -if @current_user.is_admin? && @current_object != @current_user
+  -if @current_user.is_admin? && current_object != @current_user
     See a user account
   -else
     My account
@@ -12,7 +12,7 @@
   %span.value= h current_object.name
 %p
   %span.key Contact email:
-  -if @current_user.is_admin? && @current_object != @current_user
+  -if @current_user.is_admin? && current_object != @current_user
     %span.value= mail_to "#{current_object.name} <#{current_object.email}>", current_object.email, :subject => EMAILS_SUBJECT_PREFIX
   -else
     %span.value= h current_object.email
@@ -23,14 +23,15 @@
   %span.key Last login IP:
   %span.value= current_object.last_login_ip || "&nbsp;"
 %p
-  -if @current_user.is_admin? && @current_object != @current_user
+  -if @current_user.is_admin? && current_object != @current_user
     %span.key Groups this user belongs to:
   -else
     %span.key Groups you belong to:
   %span.value= group_list(current_object)
 
--if @current_user.is_admin? && @current_object != @current_user
+-if @current_user.is_admin? && current_object != @current_user
   %p
+    = link_to 'Change Password', 'edit_password/'+current_object.perishable_token, :class => "button"
     = link_to "Edit this account", edit_user_path(current_object), :class=> "button"
     = link_to "Delete this account", user_path(current_object), {:confirm => 'Are you sure?', :method => :delete, :class => "alternative_button"}
     
@@ -52,7 +53,7 @@
   %p
     %span.large Your have an administrator account.
 
--if @current_user.is_admin? && @current_object != @current_user
+-if @current_user.is_admin? && current_object != @current_user
   %h3.subtitle
     The FTP accounts
     %ul
@@ -61,7 +62,7 @@
 
   / .paginate
   /   = will_paginate @ftpusers, :param_name => :ftpusers_page
-  = render :partial => "ftpusers/ftpusers_table", :locals => {:current_objects => @current_object.ftpusers}
+  = render :partial => "ftpusers/ftpusers_table", :locals => {:current_objects => current_object.ftpusers}
   / .paginate
   /   = will_paginate @ftpusers, :param_name => :ftpusers_page
 
@@ -74,7 +75,7 @@
 
     / .paginate
     /   = will_paginate @servers, :param_name => :servers_page
-    = render :partial => "servers/servers_table", :locals => {:current_objects => @current_object.servers}
+    = render :partial => "servers/servers_table", :locals => {:current_objects => current_object.servers}
     / .paginate
     /   = will_paginate @servers, :param_name => :servers_page
   
@@ -86,6 +87,6 @@
   
     / .paginate
     /   = will_paginate @groups, :param_name => :groups_page
-    = render :partial => "groups/groups_table", :locals => {:current_objects => @current_object.groups}
+    = render :partial => "groups/groups_table", :locals => {:current_objects => current_object.groups}
     / .paginate
     /   = will_paginate @groups, :param_name => :groups_page

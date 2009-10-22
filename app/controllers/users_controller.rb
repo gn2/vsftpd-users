@@ -1,8 +1,9 @@
 class UsersController < ApplicationController
   #before_filter :require_no_user, :only => [:new, :create]
-  before_filter :require_admin_or_no_user, :only => [:new, :create]
+  before_filter :require_admin_or_no_user, :only => [:new, :create, :edit_password, :update_password]
   before_filter :require_user, :only => [:show, :edit, :update]
   before_filter :require_admin, :only => [:index, :destroy, :activate, :inactivate, :ban]
+  before_filter :require_no_user, :only => [:new_password, :send_password]
   
   # Making sure users can only edit their account
   # def current_object
@@ -107,12 +108,29 @@ class UsersController < ApplicationController
       render :new_password
     end
   end
-             
+
   def edit_password
-     
+    
+    if !(@current_object = User.find_by_perishable_token(params[:token]))
+      flash[:error] = "You cannot change this password!"
+      redirect_to(root_url)
+    end
   end
      
   def update_password
+    if @current_object = User.find_by_perishable_token(params[:user][:perishable_token])
+      respond_to do |format|
+        if @current_object.update_password(params[:user])
+          flash[:notice] = "The password has been changed!"
+          format.html { redirect_to(root_url) }
+        else
+          format.html { render :edit_password }
+        end
+      end
+    else
+      flash[:error] = "You cannot change this password!"
+      redirect_to(root_url)
+    end
   end
   
 end

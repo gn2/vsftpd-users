@@ -75,4 +75,14 @@ class User < ActiveRecord::Base
   def self.admins
     self.find(:all, :conditions => {:is_admin => 1})
   end
+  
+  def update_password(params)
+    @changed_password = true
+    update_attributes(:password => params[:password], :password_confirmation => params[:password_confirmation])
+  end
+
+  # Some methods used by observers
+  def password_recently_changed?
+    @changed_password
+  end
 end
