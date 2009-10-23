@@ -23,7 +23,7 @@
           %td= index + 1
           %td= link_to h(object.name), server_path(object)
           %td= h(object.ip_address)
-          %td= pluralize(object.ftpusers.size, "user")
+          %td= pluralize(object.ftpusers.size, "FTP user")
           %td= "#{distance_of_time_in_words_to_now(object.created_at)} ago"
           %td= "#{distance_of_time_in_words_to_now(object.updated_at)} ago"
           %td

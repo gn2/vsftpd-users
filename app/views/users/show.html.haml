@@ -30,11 +30,14 @@
 %p
   -if @current_user.is_admin? && current_object != @current_user
     %span.key Groups this user belongs to:
+    %span.value
+      %div.float_right= link_to "Manage this User's Groups", manage_groups_user_path(current_object)
+      =group_list(current_object)
   -else
     %span.key Groups you belong to:
-  %span.value
-    %div.float_right= link_to "Manage this User's Groups", manage_groups_user_path(current_object)
-    =group_list(current_object)
+    %span.value
+      %div.float_right= link_to "Manage my Groups", manage_groups_user_path(current_object)
+      =group_list(current_object)
 
 -if @current_user.is_admin? && current_object != @current_user
   %p

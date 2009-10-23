@@ -1,7 +1,9 @@
 %h2.page_title 
-  Edit an existing server
+  Edit an existing Server
   %ul
-    %li= link_to "Back to servers list", objects_url
+    %li= link_to "Back to the Server", object_url
+    %li= link_to "Back to the Servers list", objects_url
+    %li= link_to "Back to the homepage", home_url
 
 .form_holder
   = error_messages_for :ftpuser
@@ -9,5 +11,5 @@
   - form_for(current_object, :url => object_url, :html => {:method => :put}) do |f|
     = render :partial => "form", :locals => {:f => f}
     %p.submit
-      = submit_tag("Edit server")
+      = submit_tag("Edit Server")
       = link_to("Cancel", :back, :class => "alternative_button")

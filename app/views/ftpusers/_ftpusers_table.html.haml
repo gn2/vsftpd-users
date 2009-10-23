@@ -7,7 +7,8 @@
     -if !defined?no_group_col || !no_group_col
       %col#group_col
     %col#user_count_col
-    %col#state_col
+    -if current_user.is_admin?
+      %col#state_col
     %col#created_col
     %col#updated_col
     -if current_user.is_admin?
@@ -21,7 +22,8 @@
       -if !defined?no_group_col || !no_group_col
         %th{:scope => "col"} Group
       %th{:scope => "col"} User count
-      %th{:scope => "col"} State
+      -if current_user.is_admin?
+        %th{:scope => "col"} State
       %th{:scope => "col"} Created at
       %th{:scope => "col"} Updated at
       -if current_user.is_admin?
@@ -29,30 +31,33 @@
   %tbody
     -if (current_objects && current_objects.length > 0)
       -current_objects.each_with_index do |object, index|
-        %tr{:class => (index%2==0 ? "even" : "odd")}
-          %td= index + 1
-          %td= link_to h(object.login), ftpuser_path(object)
-          -if !defined?no_server_col || !no_server_col
-            -if current_user.is_admin?
-              %td= link_to h(object.server.name), server_path(object.server)
+        -if true || object.state == 'active' || current_user.is_admin?
+          %tr{:class => (index%2==0 ? "even" : "odd")}
+            %td= index + 1
+            %td= link_to h(object.login), ftpuser_path(object)
+            -if !defined?no_server_col || !no_server_col
+              -if current_user.is_admin?
+                %td= link_to h(object.server.name), server_path(object.server)
+              -else
+                %td= object.server.name
+            -if !defined?no_group_col || !no_group_col
+              -if current_user.is_admin?
+                %td= link_to h(object.group.name), group_path(object.group)
+              -else
+                %td= object.group.name
+            -if object.users
+              %td= pluralize(object.users.size, "user")
             -else
-              %td= object.server.name
-          -if !defined?no_group_col || !no_group_col
+              %td 0 users
+            
             -if current_user.is_admin?
-              %td= link_to h(object.group.name), group_path(object.group)
-            -else
-              %td= object.group.name
-          -if object.users
-            %td= pluralize(object.users.size, "user")
-          -else
-            %td 0 users
-          %td= (friendly_states(object.state))
-          %td= "#{distance_of_time_in_words_to_now(object.created_at)} ago"
-          %td= "#{distance_of_time_in_words_to_now(object.updated_at)} ago"
-          -if current_user.is_admin?
-            %td
-              =link_to 'edit', edit_ftpuser_path(object), :class => "button"            
-              =link_to 'delete', ftpuser_path(object), {:confirm => 'Are you sure?', :method => :delete, :class => "button delete"}
+              %td= (friendly_states(object.state))
+            %td= "#{distance_of_time_in_words_to_now(object.created_at)} ago"
+            %td= "#{distance_of_time_in_words_to_now(object.updated_at)} ago"
+            -if current_user.is_admin?
+              %td
+                =link_to 'edit', edit_ftpuser_path(object), :class => "button"            
+                =link_to 'delete', ftpuser_path(object), {:confirm => 'Are you sure?', :method => :delete, :class => "button delete"}
     -else
       %tr
         %td.empty{:colspan => "9"} 

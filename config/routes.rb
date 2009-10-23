@@ -1,7 +1,13 @@
 ActionController::Routing::Routes.draw do |map|
   map.home '/home', :controller => 'home', :action => 'index'
   map.resources :servers
-  map.resources :ftpusers, :member => {:edit_password => :get, :update_password => :put}
+  map.resources :ftpusers,
+    :member => {
+      :edit_password => :get,
+      :update_password => :put,
+      :activate => :put,
+      :inactivate => :put,
+    }
   map.resources :groups
 
   map.resource :account, :controller => "users"

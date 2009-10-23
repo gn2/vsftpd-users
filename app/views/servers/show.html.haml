@@ -1,8 +1,9 @@
 %h2.page_title 
-  The server
+  The Server
   %ul
-    %li= link_to "Create a new server", new_server_path
-    %li= link_to "Back to my account", account_path
+    %li= link_to "Create a new Server", new_server_path
+    %li= link_to "Back to the Servers list", servers_path
+    %li= link_to "Back to the homepage", home_path
 
 %p
   %span.key Name: 
@@ -29,7 +30,7 @@
 
 
 %h3.subtitle
-  FTP Users linked to this server
+  FTP Users linked to this Server
   
 %p
   = render :partial => "ftpusers/ftpusers_table", :locals => {:current_objects => current_object.ftpusers, :no_server_col => true}

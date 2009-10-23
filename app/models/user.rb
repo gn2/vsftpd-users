@@ -56,9 +56,11 @@ class User < ActiveRecord::Base
   def ftpusers
     returning [] do |ftpusers|
       self.groups.each do |group|
-        ftpusers << group.ftpusers
+        group.ftpusers.each do |ftpuser|
+          ftpusers << ftpuser if ftpuser.state == 'active'
+        end
       end
-    end.flatten
+    end.uniq
   end
   
   def servers

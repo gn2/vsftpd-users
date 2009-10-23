@@ -1,7 +1,7 @@
 require "digest/md5"
 
 class FtpusersController < ApplicationController
-  before_filter :require_admin, :only => [:new, :create, :edit, :update, :destroy]
+  before_filter :require_admin, :only => [:new, :create, :edit, :update, :destroy, :activate, :inactivate]
   before_filter :require_user
   before_filter :require_authorised_user, :except => [:new, :create, :index]
   before_filter :encrypt_password, :only => [:create, :update_password]
@@ -36,6 +36,18 @@ class FtpusersController < ApplicationController
     end
   end
   
+  def activate
+    current_object.activate!
+    flash[:notice] = "This FTP User has been activated successfully!"
+    redirect_to ftpuser_path(current_object)
+  end
+  
+  def inactivate
+    current_object.inactivate!
+    flash[:notice] = "This FTP User has been inactivated successfully!"
+    redirect_to ftpuser_path(current_object)
+  end
+  
   private
   def require_authorised_user
     ftpuser = Ftpuser.find(params[:id])
@@ -56,6 +68,16 @@ class FtpusersController < ApplicationController
       return Ftpuser.all
     else
       return current_user.ftpusers
+    end
+  end
+  
+  def current_object
+    ftpuser = Ftpuser.find_by_id(params[:id])
+    if current_user.is_admin? || current_user.ftpusers.include?(ftpuser)
+      return ftpuser
+    else
+      flash[:notice] = "You cannot access this FTP User!"
+      redirect_back_or_default home_url
     end
   end
 end
