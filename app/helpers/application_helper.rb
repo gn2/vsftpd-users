@@ -14,4 +14,18 @@ module ApplicationHelper
   def nl2br(s)
     s.gsub(/(\r)?\n/, "<br />")
   end
+  
+  def friendly_states(state)
+    img = case state
+      when "pending" :   "help"
+      when "inactive":   "delete"
+      when "active"  :   "accept"
+      when "banned"  :   "block"
+      
+      when "inactivate":   "delete"
+      when "activate"  :   "accept"
+      when "ban"  :   "block"
+    end
+    image_tag img+".png", :alt => state.capitalize, :title => state.capitalize
+  end
 end

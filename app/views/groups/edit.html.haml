@@ -1,7 +1,8 @@
 %h2.page_title 
   Edit an existing group
   %ul
-    %li= link_to "Back to groups list", objects_url
+    %li= link_to "Back to the Groups list", objects_url
+    %li= link_to "Back to the homepage", home_path
 
 .form_holder
   = error_messages_for :group
@@ -9,5 +10,5 @@
   - form_for(current_object, :url => object_url, :html => {:method => :put}) do |f|
     = render :partial => "form", :locals => {:f => f}
     %p.submit
-      = submit_tag("Edit group")
-      = link_to("Cancel", objects_url, :class => "alternative_button")
+      = submit_tag("Edit Group")
+      = link_to("Cancel", :back, :class => "alternative_button")

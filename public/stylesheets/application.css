@@ -39,6 +39,9 @@ td a.button {
   hover-color: #00c0ff;
   hover-text-decoration: underline; }
 
+a img {
+  border: 0; }
+
 h1, h2, h3 {
   font-weight: normal;
   color: #00c0ff; }

@@ -135,4 +135,43 @@ class UserTest < Test::Unit::TestCase
     end
   end
   
+  context "A changed password" do
+    setup do
+      @user = User.make(:user_active)
+      @old_password = @user.password
+      @user.update_password(:password => "bla", :password_confirmation => "bla")
+    end
+      
+    should "be seen as a recent change" do
+      assert @user.password_recently_changed?
+    end
+    
+    should "not be the same than the old one" do
+      assert_not_equal @old_password, @user.password
+    end
+  end
+  
+  context "A changed groups list" do
+    setup do
+      @user = User.make
+      @group1 = Group.make
+      @user.groups << @group1
+      @group2 = Group.make
+      @group2.id = 100
+      @group2.save
+      user = Array[]
+      groups = Array[]
+      groups << 100
+      user << groups
+      @user.update_groups(:user => user)
+    end
+    
+    should "not contain group1" do
+      assert !@user.groups.include?(@group1)
+    end
+    
+    should "contain group2" do
+      assert @user.groups.include?(@group2)
+    end
+  end
 end

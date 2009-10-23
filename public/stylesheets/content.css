@@ -130,3 +130,9 @@ table {
   text-align: center; }
   .pagination a {
     font-size: 1.3em; }
+
+.center {
+  text-align: center; }
+
+.float_right {
+  float: right; }

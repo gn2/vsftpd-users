@@ -14,7 +14,7 @@
         %th{:scope => "col"} Name
         %th{:scope => "col"} Login
         %th{:scope => "col"} E-mail
-        %th{:scope => "col"} Company ID?
+        %th{:scope => "col"} Company ID
         %th{:scope => "col"} State
         %th{:scope => "col"} Created
         %th{:scope => "col"} Last login
@@ -30,12 +30,12 @@
               %td= link_to object.login, user_path(object.id)
               %td= mail_to "#{object.name} <#{object.email}>", object.email, :subject => EMAILS_SUBJECT_PREFIX
               %td= h object.company_id
-              %td= h object.state
+              %td= friendly_states(object.state)
               %td= "#{distance_of_time_in_words_to_now(object.created_at)} ago"
               %td= object.last_login_at ? "#{distance_of_time_in_words_to_now(object.last_login_at)} ago" : "&nbsp;"
               %td= h object.last_login_ip
               %td= h object.login_count
-              %td= "Yes" if object.is_admin?
+              %td= friendly_is_admin(object.is_admin?)
         -else
           %tr
             %td.empty{:colspan => "11"} 

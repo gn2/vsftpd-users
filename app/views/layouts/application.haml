@@ -2,7 +2,31 @@
 %html{:xmlns => "http://www.w3.org/1999/xhtml", "xml:lang".to_sym  => "en", :lang => "en"}
   %head
     %title VSFTPD Administration console
-    = stylesheet_link_tag 'application', 'content', :media => :screen
+    
+    = stylesheet_link_tag 'application', 'content', 'asmselect', :media => :screen
+    
+    %script{:type => "text/javascript", :src  => "/javascripts/jquery.js"}
+    %script{:type => "text/javascript", :src  => "/javascripts/jquery.ui.js"}
+    %script{:type => "text/javascript", :src  => "/javascripts/jquery.asmselect.js"}
+    
+    %script{:type => "text/javascript"}
+      $(document).ready(function() {
+      $("select[multiple]").asmSelect({
+      
+      highlight: true,
+      animate: true,
+      addItemTarget: 'top',
+
+      removeLabel: "Remove",
+      highlightAddedLabel: "Added : ",
+      highlightRemovedLabel: "Removed: "
+      });
+
+      //$("select[multiple]").change(function(e, data) {
+
+      //$("#changes").prepend("<li>" + data.type + " : " + data.value + "</li>"); 
+      //});
+      });
   %body
     #header
       %h1.title= link_to("VSFTPD Administration console", root_path)  

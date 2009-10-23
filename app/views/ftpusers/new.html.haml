@@ -1,7 +1,8 @@
 %h2.page_title 
-  Create a new FTP account
+  Create a new FTP User
   %ul
-    %li= link_to "Back to FTP accounts list", objects_url
+    %li= link_to "Back to the FTP Users list", objects_url
+    %li= link_to "Back to the homepage", home_path
 
 .form_holder
   = error_messages_for :ftpuser
@@ -9,5 +10,5 @@
   - form_for(current_object, :url => objects_url) do |f|
     = render :partial => "form", :locals => {:f => f}
     %p.submit
-      = submit_tag("Create account")
-      = link_to("Cancel", objects_url, :class => "alternative_button")
+      = submit_tag("Create the FTP User")
+      = link_to("Cancel", :back, :class => "alternative_button")

@@ -80,9 +80,35 @@ class User < ActiveRecord::Base
     @changed_password = true
     update_attributes(:password => params[:password], :password_confirmation => params[:password_confirmation])
   end
-
+  
   # Some methods used by observers
   def password_recently_changed?
     @changed_password
+  end
+  
+  def update_groups(user)
+    self.groups.clear
+    if defined?user[:groups]
+      user[:groups].each do |group_id|
+        # if !self.groups.include?(group)
+        if new_group = Group.find_by_id(group_id)
+         self.groups << new_group
+        end
+      end
+    end
+  end
+  
+  def revoke_admin!
+    if self.is_admin?
+      self.is_admin = false
+      self.save
+    end
+  end
+  
+  def grant_admin!
+    if !self.is_admin?
+      self.is_admin = true
+      self.save
+    end
   end
 end

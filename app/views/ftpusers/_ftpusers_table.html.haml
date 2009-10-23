@@ -46,7 +46,7 @@
             %td= pluralize(object.users.size, "user")
           -else
             %td 0 users
-          %td= h(object.state)
+          %td= (friendly_states(object.state))
           %td= "#{distance_of_time_in_words_to_now(object.created_at)} ago"
           %td= "#{distance_of_time_in_words_to_now(object.updated_at)} ago"
           -if current_user.is_admin?

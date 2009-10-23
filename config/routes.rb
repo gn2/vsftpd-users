@@ -10,7 +10,11 @@ ActionController::Routing::Routes.draw do |map|
       :activate => :put,
       :inactivate => :put,
       :ban => :put,
-      :update_password => :put
+      :update_password => :put,
+      :manage_groups => :get,
+      :update_groups => :put,
+      :grant_admin => :put,
+      :revoke_admin => :put
     },
     :collection => {
       :new_password => :get,

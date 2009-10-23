@@ -2,8 +2,10 @@
   Show a FTP User
   %ul
     -if current_user.is_admin?
-      %li= link_to "Create a new FTP user", new_ftpuser_path
-    %li= link_to "Back to my account", account_path
+      %li= link_to "Create a new FTP User", new_ftpuser_path
+      %li= link_to "Back to the FTP Users list", ftpusers_path
+
+    %li= link_to "Back to the homepage", home_path
 
 %p
   %span.key Login: 
@@ -22,6 +24,9 @@
 %p
   %span.key Server: 
   %span.value
+    .float_right
+      IP:
+      = h current_object.server.ip_address
     %strong
       -if current_user.is_admin?
         =link_to current_object.server.name, current_object.server
@@ -29,9 +34,6 @@
         = h current_object.server.name
     %br
     = h current_object.server.description
-    %br
-    IP:
-    = h current_object.server.ip_address
 %p
   %span.key Created: 
   %span.value= "#{distance_of_time_in_words_to_now(current_object.created_at)} ago"

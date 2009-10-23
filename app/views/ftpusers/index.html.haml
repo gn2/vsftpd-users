@@ -1,7 +1,8 @@
 %h2.page_title 
-  Browse all FTP accounts
+  Browse all the FTP Users
   %ul
-    %li= link_to "Back to my account", account_path
+    %li= link_to "Create a new FTP user", new_ftpuser_path
+    %li= link_to "Back to the homepage", home_path
     
     
 = render :partial => "ftpusers/ftpusers_table", :locals => {:current_objects => @ftpusers}

@@ -64,7 +64,7 @@ class GroupsControllerTest < ActionController::TestCase
     end
   end
 
-  context "ServersController, logged as an ADMIN" do
+  context "GroupsController, logged as an ADMIN" do
     setup do
       UserSession.create(users(:ben))
     end

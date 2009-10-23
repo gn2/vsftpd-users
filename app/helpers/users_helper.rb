@@ -5,7 +5,7 @@ module UsersHelper
     list.empty? ? "&nbsp;" : list
   end
   
-  def format_states(state)
-    state.capitalize
+  def friendly_is_admin(is_admin)
+    image_tag "user.png", :alt => "Is Admin", :title => "This User is Admin!" if is_admin
   end
 end

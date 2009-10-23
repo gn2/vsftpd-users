@@ -1,0 +1,19 @@
+#central_box
+  %h2
+    ="<em>#{h current_object.login.capitalize}</em>'s Groups management"
+    
+  /%ul#changes
+  / 
+  
+  .form_holder
+    - form_for(current_object, :url => update_groups_user_path(current_object)) do |f|
+  
+      /= f.error_messages  
+      /= f.select :groups, {}, {:prompt => 'Select a group'}, {:multiple => true}
+      %select{:name => "user[groups][]", :multiple => true, :title => "Select a group in the list "}
+        = options_for_select @groups.collect{|g| [g.name, g.id]}, current_object.groups.collect{|g| g.id}
+
+      %br
+      %p.submit.center
+        = submit_tag "Save!"
+        = link_to("Cancel", :back, :class => "alternative_button")

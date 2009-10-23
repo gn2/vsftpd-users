@@ -12,8 +12,8 @@
 %p
   %span.label
     = f.label :group_id, "This account will belong to"
-    = f.select :group_id, @groups, {:prompt => 'Select a group', :selected => f.object.group_id.to_s}, {}
+    = f.select :group_id, @groups, {:prompt => 'Select a Group', :selected => f.object.group_id.to_s}, {}
 %p
   %span.label
     = f.label :server_id, "This account is for"
-    = f.select :server_id, @servers, {:prompt => 'Select a server', :selected => f.object.server_id.to_s}, {}
+    = f.select :server_id, @servers, {:prompt => 'Select a Server', :selected => f.object.server_id.to_s}, {}

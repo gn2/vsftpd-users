@@ -1,8 +1,8 @@
 %h2.page_title
   The groups
   %ul
-    %li= link_to "Create a new group", new_group_path
-    %li= link_to "Back to my account", account_path
+    %li= link_to "Create a new Group", new_group_path
+    %li= link_to "Back to the homepage", home_path
 
 
 = render :partial => "groups_table", :locals => {:current_objects => @groups}

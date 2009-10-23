@@ -1,7 +1,9 @@
 %h2.page_title 
-  Edit a FTP account
+  Edit a FTP User
   %ul
-    %li= link_to "Back the FTP account", ftpuser_path(current_object)
+    %li= link_to "Back to the FTP User", ftpuser_path(current_object)
+    %li= link_to "Back to the FTP Users list", ftpusers_path
+    %li= link_to "Back to the homepage", home_path
 
 .form_holder
   = error_messages_for :ftpuser
@@ -10,4 +12,4 @@
     = render :partial => "form", :locals => {:f => f}
     %p.submit
       = submit_tag("Edit account")
-      = link_to("Cancel", ftpuser_path(current_object), :class => "alternative_button")
+      = link_to("Cancel", :back, :class => "alternative_button")

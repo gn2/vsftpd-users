@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   #before_filter :require_no_user, :only => [:new, :create]
   before_filter :require_admin_or_no_user, :only => [:new, :create, :edit_password, :update_password]
   before_filter :require_user, :only => [:show, :edit, :update]
-  before_filter :require_admin, :only => [:index, :destroy, :activate, :inactivate, :ban]
+  before_filter :require_admin, :only => [:index, :destroy, :activate, :inactivate, :ban, :manage_groups, :update_groups, :grant_admin, :revoke_admin]
   before_filter :require_no_user, :only => [:new_password, :send_password]
   
   # Making sure users can only edit their account
@@ -51,7 +51,7 @@ class UsersController < ApplicationController
     if current_object != @current_user
       current_object.delete!
       current_object.destroy
-      flash[:notice] = "This user has been deleted successfully!"
+      flash[:notice] = "This User has been deleted successfully!"
     else
       flash[:error] = "You cannot delete your own account!"
     end
@@ -64,7 +64,7 @@ class UsersController < ApplicationController
   def activate
     if current_object != @current_user
       current_object.activate!
-      flash[:notice] = "This user has been activated successfully!"
+      flash[:notice] = "This User has been activated successfully!"
     else
       flash[:error] = "You cannot update your own state!"
     end
@@ -74,7 +74,7 @@ class UsersController < ApplicationController
   def inactivate
     if current_object != @current_user
       current_object.inactivate!
-      flash[:notice] = "This user has been inactivated successfully!"
+      flash[:notice] = "This User has been inactivated successfully!"
     else
       flash[:error] = "You cannot update your own state!"
     end
@@ -84,7 +84,7 @@ class UsersController < ApplicationController
   def ban
     if current_object != @current_user
       current_object.ban!
-      flash[:notice] = "This user has been banned successfully!"
+      flash[:notice] = "This User has been banned successfully!"
     else
       flash[:error] = "You cannot update your own state!"
     end
@@ -98,7 +98,7 @@ class UsersController < ApplicationController
   def send_password
     if @current_object = User.find_by_login(params[:user][:login])
       UserMailer.deliver_mail_for_a_new_password(@current_object)
-      flash[:notice] = "An email has been sent to this account email!"
+      flash[:notice] = "An email has been sent to this User's email!"
       redirect_to(root_url)
     else
       @current_object = User.new
@@ -133,4 +133,45 @@ class UsersController < ApplicationController
     end
   end
   
+  def manage_groups
+    current_object = User.find_by_id(params[:id])
+    @groups = Group.all
+  end
+  
+  def update_groups
+    current_object = User.find_by_id(params[:id])
+    current_object.update_groups(params[:user])
+    respond_to do |format|
+      flash[:notice] = "The Group list has been updated successfully!"
+      format.html { redirect_to(user_url(current_object)) }
+    end
+  end
+  
+  def revoke_admin
+    if current_object.is_admin?
+      if current_object != @current_user 
+        current_object.revoke_admin!
+        flash[:notice] = "This User is not an administrator anymore!"
+      else
+        flash[:error] = "You cannot update your own rights!"
+      end
+    else
+      flash[:error] = "This User is not an administrator!"
+    end
+    redirect_to user_path(current_object)
+  end
+  
+  def grant_admin
+    if !current_object.is_admin?
+      if current_object != @current_user 
+        current_object.grant_admin!
+        flash[:notice] = "This User is an administrator from now on!"
+      else
+        flash[:error] = "You cannot update your own rights!"
+      end
+    else
+      flash[:error] = "This User is already an administrator!"
+    end
+    redirect_to user_path(current_object)
+  end
 end

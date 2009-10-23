@@ -6,8 +6,8 @@
   -else
     My FTP accounts
   %ul
-    %li= link_to "Browse all FTP users", ftpusers_path
-    %li= link_to "Create a new FTP user", new_ftpuser_path
+    %li= link_to "Create a new FTP User", new_ftpuser_path
+    %li= link_to "Browse all the FTP users", ftpusers_path
 
 .paginate
   = will_paginate @ftpusers, :param_name => :ftpusers_page
@@ -19,14 +19,26 @@
   %h3.subtitle
     The Users
     %ul
-      %li= link_to "Browse all users", users_path
-      %li= link_to "Create a new user", new_user_path
+      %li= link_to "Create a new User", new_user_path
+      %li= link_to "Browse all the Users", users_path
 
   %h3.subtitle
-    The servers
+    The Groups
     %ul
-      %li= link_to "Browse all servers", servers_path
-      %li= link_to "Create a new server", new_server_path
+      %li= link_to "Create a new Group", new_group_path
+      %li= link_to "Browse all the Groups", groups_path
+
+  .paginate
+    = will_paginate @groups, :param_name => :groups_page
+  = render :partial => "groups/groups_table", :locals => {:current_objects => @groups}
+  .paginate
+    = will_paginate @groups, :param_name => :groups_page
+
+  %h3.subtitle
+    The Servers
+    %ul
+      %li= link_to "Create a new Server", new_server_path
+      %li= link_to "Browse all the Servers", servers_path
 
   .paginate
     = will_paginate @servers, :param_name => :servers_page
@@ -34,14 +46,3 @@
   .paginate
     = will_paginate @servers, :param_name => :servers_page
   
-  %h3.subtitle
-    The groups
-    %ul
-      %li= link_to "Browse all groups", groups_path
-      %li= link_to "Create a new group", new_group_path
-  
-  .paginate
-    = will_paginate @groups, :param_name => :groups_page
-  = render :partial => "groups/groups_table", :locals => {:current_objects => @groups}
-  .paginate
-    = will_paginate @groups, :param_name => :groups_page
