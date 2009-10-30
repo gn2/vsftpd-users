@@ -32,12 +32,15 @@
     %span.key Groups this user belongs to:
     %span.value
       %div.float_right= link_to "Manage this User's Groups", manage_groups_user_path(current_object)
-      =group_list(current_object)
+      =groups_links_list(current_object)
   -else
     %span.key Groups you belong to:
     %span.value
-      %div.float_right= link_to "Manage my Groups", manage_groups_user_path(current_object)
-      =group_list(current_object)
+      -if @current_user.is_admin?
+        %div.float_right= link_to "Manage my Groups", manage_groups_user_path(current_object)
+        =groups_links_list(current_object)
+      -else
+        =groups_list(current_object)
 
 -if @current_user.is_admin? && current_object != @current_user
   %p
@@ -63,7 +66,7 @@
 -if current_object.is_admin? && current_object == @current_user
   %p
     %span.large Your have an administrator account.
-- else
+- elsif @current_user.is_admin?
   -if current_object.is_admin?
     %p
       %span.large

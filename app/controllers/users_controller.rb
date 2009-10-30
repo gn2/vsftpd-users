@@ -16,8 +16,9 @@ class UsersController < ApplicationController
     elsif @current_user.is_admin?
       @current_object ||= User.find_by_id(params[:id])
     else
-      flash[:notice] = "You cannot access this account!"
-      redirect_back_or_default home_url
+      @current_object ||= nil
+      # flash[:notice] = "You cannot access this account!"
+      # redirect_back_or_default home_url
     end
     
     # if !@current_user.is_admin? && @current_user.id == params[:id]
@@ -44,6 +45,16 @@ class UsersController < ApplicationController
     #         @ftpusers = current_object.ftpusers.paginate :page => params[:ftpusers_page], :order => 'created_at DESC', :per_page => 5
     #       end
     #     end
+    
+    before :update do
+      if @current_user.is_admin? && current_object != @current_user
+        params[:user][:password] = params[:user][:password_confirmation] = nil
+      end
+    end
+    
+    after :create_fails, :update_fails do
+      flash[:error] = flash[:notice] = ""
+    end
     
   end
   
@@ -134,12 +145,10 @@ class UsersController < ApplicationController
   end
   
   def manage_groups
-    current_object = User.find_by_id(params[:id])
     @groups = Group.all
   end
   
   def update_groups
-    current_object = User.find_by_id(params[:id])
     current_object.update_groups(params[:user])
     respond_to do |format|
       flash[:notice] = "The Group list has been updated successfully!"

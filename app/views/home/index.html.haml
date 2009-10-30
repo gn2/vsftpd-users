@@ -6,7 +6,8 @@
   -else
     My FTP accounts
   %ul
-    %li= link_to "Create a new FTP User", new_ftpuser_path
+    -if current_user.is_admin?
+      %li= link_to "Create a new FTP User", new_ftpuser_path
     %li= link_to "Browse all the FTP users", ftpusers_path
 
 .paginate

@@ -9,5 +9,8 @@
   - form_for(current_object, :url => object_url, :html => { :method => :put }) do |f|
     = render :partial => "form", :locals => {:f => f}
     %p.submit
-      = submit_tag("Update my info")
-      = link_to("Cancel", :back, :class => "alternative_button")
+      -if current_object != @current_user
+        = submit_tag("Update these info")
+      -else
+        = submit_tag("Update my info")
+      = link_to("Cancel", ftpuser_path(current_object), :class => "alternative_button")

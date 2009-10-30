@@ -8,6 +8,9 @@ class User < ActiveRecord::Base
   # Validations
   validates_presence_of :name
   validates_uniqueness_of :login, :email
+  
+  # self.validates_length_of_password_field_options = 6
+  
   #validates_numericality_of :is_admin, :only_integer => true, :greater_than_or_equal_to => 0, :less_than_or_equal_to => 1
   #validates_inclusion_of :is_admin, :in => %w(0 1)
   #validates_format_of :is_admin, :with => /\A["0"]\z/
@@ -88,14 +91,13 @@ class User < ActiveRecord::Base
     @changed_password
   end
   
-  def update_groups(user)
+  def update_groups(params = {})
     self.groups.clear
-    if defined?user[:groups]
-      user[:groups].each do |group_id|
+    if params[:groups]
+      params[:groups].each do |group_id|
         # if !self.groups.include?(group)
-        if new_group = Group.find_by_id(group_id)
-         self.groups << new_group
-        end
+        new_group = Group.find_by_id(group_id)
+        self.groups << new_group if new_group
       end
     end
   end

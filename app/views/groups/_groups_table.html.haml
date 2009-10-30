@@ -20,7 +20,7 @@
     -if (current_objects && current_objects.length > 0)
       -current_objects.each_with_index do |object, index|
         %tr{:class => (index%2==0 ? "even" : "odd")}
-          %td= index + 1
+          %td= object.id
           %td= link_to h(object.name), group_path(object)
           %td= pluralize(object.ftpusers.size, "FTP user")
           %td= pluralize(object.users.size, "user")

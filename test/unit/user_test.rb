@@ -159,11 +159,8 @@ class UserTest < Test::Unit::TestCase
       @group2 = Group.make
       @group2.id = 100
       @group2.save
-      user = Array[]
-      groups = Array[]
-      groups << 100
-      user << groups
-      @user.update_groups(:user => user)
+      params = {:groups => ["100"]}
+      @user.update_groups(params)
     end
     
     should "not contain group1" do

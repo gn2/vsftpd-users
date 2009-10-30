@@ -9,11 +9,11 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091021141935) do
+ActiveRecord::Schema.define(:version => 20091023151313) do
 
   create_table "ftpusers", :force => true do |t|
     t.string   "login"
-    t.string   "password"
+    t.string   "crypted_password"
     t.string   "state"
     t.integer  "server_id"
     t.datetime "created_at"

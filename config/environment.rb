@@ -4,11 +4,14 @@
 RAILS_GEM_VERSION = '2.3.2' unless defined? RAILS_GEM_VERSION
 
 # BASE_URL = "http://www.vsftpd-users.co.uk/"
-BASE_URL = "http://localhost:3000/"
+BASE_URL              = "http://localhost:3000/"
 
 EMAILS_SUBJECT_PREFIX = '[VSFTPD] '
-EMAILS_FROM = 'Myself <me@example.net>'
+EMAILS_FROM           = 'Myself <me@example.net>'
 
+# NB_FTPUSERS_HOMEPAGE  = 5
+# NB_GROUPS_HOMEPAGE    = 5
+# NB_SERVERS_HOMEPAGE   = 5
 
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')

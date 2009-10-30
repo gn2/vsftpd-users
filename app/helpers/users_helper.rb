@@ -1,7 +1,12 @@
 module UsersHelper
 
-  def group_list(user)
+  def groups_links_list(user)
     list = user.groups.collect{ |group| link_to(group.name, group_path(group)) }.join(', ')
+    list.empty? ? "&nbsp;" : list
+  end
+  
+  def groups_list(user)
+    list = user.groups.collect{ |group| group.name }.join(', ')
     list.empty? ? "&nbsp;" : list
   end
   

@@ -33,7 +33,7 @@
       -current_objects.each_with_index do |object, index|
         -if true || object.state == 'active' || current_user.is_admin?
           %tr{:class => (index%2==0 ? "even" : "odd")}
-            %td= index + 1
+            %td= object.id
             %td= link_to h(object.login), ftpuser_path(object)
             -if !defined?no_server_col || !no_server_col
               -if current_user.is_admin?

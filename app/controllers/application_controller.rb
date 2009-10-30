@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
     def require_user
       unless current_user
         store_location
-        flash[:notice] = "You must be logged in to access this page"
+        flash[:error] = "You must be logged in to access this page"
         redirect_to new_user_session_url
         return false
       end
@@ -31,8 +31,8 @@ class ApplicationController < ActionController::Base
 
     def require_no_user
       if current_user
-        store_location
-        # flash[:notice] = "You must be logged out to access this page"
+        #store_location
+        flash[:error] = "You must be logged out to access this page"
         redirect_to home_url
         return false
       end
@@ -41,7 +41,7 @@ class ApplicationController < ActionController::Base
     def require_admin_or_no_user
       if current_user && !current_user.is_admin?
         store_location
-        flash[:notice] = "You must be logged out to access this page"
+        flash[:error] = "You must be logged out to access this page"
         redirect_to home_url
         return false
       end
@@ -59,7 +59,7 @@ class ApplicationController < ActionController::Base
     def require_admin
       unless current_user && current_user.is_admin?
         store_location
-        flash[:notice] = "You must be an administrator to access this page"
+        flash[:error] = "You must be an administrator to access this page"
         redirect_to home_path
         return false
       end
