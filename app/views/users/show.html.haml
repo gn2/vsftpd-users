@@ -43,11 +43,6 @@
         =groups_list(current_object)
 
 -if @current_user.is_admin? && current_object != @current_user
-  %p
-    = link_to 'Change Password', 'edit_password/'+current_object.perishable_token, :class => "button"
-    = link_to "Edit this account", edit_user_path(current_object), :class=> "button"
-    = link_to "Delete this account", user_path(current_object), {:confirm => 'Are you sure?', :method => :delete, :class => "alternative_button"}
-    
   %p 
     %span.key State:
     %span.value
@@ -60,6 +55,13 @@
         -if ["active", "inactive", "pending"].include?current_object.state
           = link_to friendly_states("ban"), ban_user_path(current_object), :method => :put
       = friendly_states(current_object.state)
+    
+  %p
+    %br
+    = link_to 'Change Password', 'edit_password/'+current_object.perishable_token, :class => "button"
+    = link_to "Edit this account", edit_user_path(current_object), :class=> "button"
+    = link_to "Delete this account", user_path(current_object), {:confirm => 'Are you sure?', :method => :delete, :class => "alternative_button"}
+    
 -else
   %p= link_to "Edit my account", edit_user_path(current_object), :class=> "button"
 

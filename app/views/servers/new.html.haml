@@ -11,4 +11,4 @@
     = render :partial => "form", :locals => {:f => f}
     %p.submit
       = submit_tag("Create server")
-      = link_to("Cancel", :back, :class => "alternative_button")
+      = link_to("Cancel", servers_path, :class => "alternative_button")

@@ -1,5 +1,5 @@
 #central_box
-  %h2 Register
+  %h2 Register a new User
 
   .form_holder
     - form_for(current_object, :url => account_path) do |f|
@@ -7,4 +7,7 @@
       = render :partial => "form", :locals => {:f => f}
       %p.submit
         = submit_tag "Register"
-        = link_to("Cancel", root_url, :class => "alternative_button")
+        -if current_user
+          = link_to("Cancel", users_path, :class => "alternative_button")
+        -else
+          = link_to("Cancel", root_url, :class => "alternative_button")

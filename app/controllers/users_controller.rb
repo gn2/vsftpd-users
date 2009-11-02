@@ -122,18 +122,18 @@ class UsersController < ApplicationController
 
   def edit_password
     
-    if !(@current_object = User.find_by_perishable_token(params[:token]))
+    if !(@user = User.find_by_perishable_token(params[:token]))
       flash[:error] = "You cannot change this password!"
-      redirect_to(root_url)
+      redirect_to(users_path)
     end
   end
      
   def update_password
-    if @current_object = User.find_by_perishable_token(params[:user][:perishable_token])
+    if @user = User.find_by_perishable_token(params[:user][:perishable_token])
       respond_to do |format|
-        if @current_object.update_password(params[:user])
+        if @user.update_password(params[:user])
           flash[:notice] = "The password has been changed!"
-          format.html { redirect_to(root_url) }
+          format.html { redirect_to(user_path(@user)) }
         else
           format.html { render :edit_password }
         end

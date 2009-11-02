@@ -16,4 +16,4 @@
       %br
       %p.submit.center
         = submit_tag "Save!"
-        = link_to("Cancel", :back, :class => "alternative_button")
+        = link_to("Cancel", user_path(current_object), :class => "alternative_button")

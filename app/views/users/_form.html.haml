@@ -7,7 +7,7 @@
 %p
   %span.label= f.label :login
   %span.input= f.text_field :login, :class => "text_field"
--if !@current_user.is_admin? || current_object == @current_user
+-if !@current_user || !@current_user.is_admin? || current_object == @current_user
   %p
     %span.label= f.label :password, f.object.new_record? ? nil : "Change password"
     %span.input= f.password_field :password, :class => "password_field"

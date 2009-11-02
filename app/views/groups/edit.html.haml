@@ -7,9 +7,8 @@
 
 .form_holder
   = error_messages_for :group
-
   - form_for(current_object, :url => object_url, :html => {:method => :put}) do |f|
     = render :partial => "form", :locals => {:f => f}
     %p.submit
       = submit_tag("Edit Group")
-      = link_to("Cancel", :back, :class => "alternative_button")
+      = link_to("Cancel", groups_path, :class => "alternative_button")

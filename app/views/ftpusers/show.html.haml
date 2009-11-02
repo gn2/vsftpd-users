@@ -40,12 +40,6 @@
 %p
   %span.key Updated: 
   %span.value= "#{distance_of_time_in_words_to_now(current_object.updated_at)} ago"
-  
-%p
-  =link_to 'Change Password', edit_password_ftpuser_path(current_object), :class => "button"
-  -if current_user.is_admin?
-    =link_to 'Edit', edit_ftpuser_path(current_object), :class => "button"
-    =link_to 'Delete', ftpuser_path(current_object), {:confirm => 'Are you sure?', :method => :delete, :class => "alternative_button"}
 
 -if current_user.is_admin?
   %p 
@@ -58,6 +52,13 @@
         -if ["active"].include?current_object.state
           = link_to friendly_states("inactivate"), inactivate_ftpuser_path(current_object), :method => :put
       = friendly_states(current_object.state)
+
+%p
+  %br
+  =link_to 'Change Password', edit_password_ftpuser_path(current_object), :class => "button"
+  -if current_user.is_admin?
+    =link_to 'Edit', edit_ftpuser_path(current_object), :class => "button"
+    =link_to 'Delete', ftpuser_path(current_object), {:confirm => 'Are you sure?', :method => :delete, :class => "alternative_button"}
 
   %h3.subtitle
     Users who have access to this FTP User

@@ -93,15 +93,16 @@ h3 {
       text-decoration: underline; }
   #header .message_notice, #header .message_error {
     float: left;
-    color: #2e2e2e;
     width: 55%;
     margin: -3px auto 0 auto;
     font-size: 1.4em;
     padding: 3px 5px 1px 5px; }
   #header .message_notice {
-    background: #00c0ff; }
+    background: #00c0ff;
+    color: #2e2e2e; }
   #header .message_error {
-    background: red; }
+    background: red;
+    color: #ddb0de; }
   #header .menu {
     text-align: right;
     width: 20%;
