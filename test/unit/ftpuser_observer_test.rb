@@ -24,7 +24,9 @@ class FtpuserObserverTest < ActionMailer::TestCase
       @ftpuser.update_password({:password => "new_password", :password_confirmartion => "new_password"})
     end
     
-    
+    should "be seen as recently password changed" do
+      assert @ftpuser.password_recently_changed?
+    end
     
     # The way we send emails is not compatible with the tests below. That's why sometimes it works, sometimes it does not.
     # Thinking about a new test version.

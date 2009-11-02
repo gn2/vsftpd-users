@@ -78,8 +78,8 @@ class UserTest < Test::Unit::TestCase
     setup do
       @user = User.make(:user_active)
       @group = Group.make
-      @ftpuser1 = Ftpuser.make
-      @ftpuser2 = Ftpuser.make
+      @ftpuser1 = Ftpuser.make_unsaved
+      @ftpuser2 = Ftpuser.make_unsaved
       @ftpuser1.group = @group
       @user.groups << @group
       @ftpuser1.save
@@ -161,6 +161,7 @@ class UserTest < Test::Unit::TestCase
       @group2.save
       params = {:groups => ["100"]}
       @user.update_groups(params)
+      # @user.save
     end
     
     should "not contain group1" do

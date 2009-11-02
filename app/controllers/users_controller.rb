@@ -52,6 +52,13 @@ class UsersController < ApplicationController
       end
     end
     
+    before :show, :edit, :update, :destroy do
+      if !current_object
+        redirect_to home_url
+      end
+    end
+      
+    
     after :create_fails, :update_fails do
       flash[:error] = flash[:notice] = ""
     end

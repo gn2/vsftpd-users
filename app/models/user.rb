@@ -93,7 +93,7 @@ class User < ActiveRecord::Base
   
   def update_groups(params = {})
     self.groups.clear
-    if params[:groups]
+    if params && params[:groups]
       params[:groups].each do |group_id|
         # if !self.groups.include?(group)
         new_group = Group.find_by_id(group_id)
