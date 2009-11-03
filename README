@@ -1,7 +1,7 @@
 ==== vsftpd-users ===
 
 This application helps you manage users of multiple vsftpd servers.
-It relies on the fact you are using pam-mysql to authenticate on you vsftpd servers.
+It relies on the fact you are using pam-mysql to authenticate on your vsftpd servers.
 
 === Resources ===
 vsftpd: http://vsftpd.beasts.org/

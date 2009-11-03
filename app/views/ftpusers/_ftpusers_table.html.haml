@@ -61,5 +61,6 @@
     -else
       %tr
         %td.empty{:colspan => "9"} 
-          No ftp account found. 
-          = link_to "Create one?", new_ftpuser_path
+          No FTP account found.
+          -if current_user.is_admin?
+            = link_to "Create one?", new_ftpuser_path

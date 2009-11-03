@@ -77,7 +77,7 @@ class UsersControllerTest < ActionController::TestCase
         end
       end
       
-      context "on GET to :update forbidden on another account" do
+      context "on PUT to :update forbidden on another account" do
         setup do
           put :update, :id => users(:two).id, :user => {:name => "new name", :login => "new_login", :email => "new_user@example.net", :password => "123456", :password_confirmation => "123456"}
         end

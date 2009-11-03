@@ -10,13 +10,15 @@ class UsersController < ApplicationController
   #   @current_object ||= @current_user
   # end
   
+  
   def current_object
     if !params[:id] || @current_user.id.to_s == params[:id]
       @current_object ||= @current_user
     elsif @current_user.is_admin?
       @current_object ||= User.find_by_id(params[:id])
     else
-      @current_object ||= nil
+      @current_object = nil
+      # @current_object ||= User.find_by_id(params[:id])
       # flash[:notice] = "You cannot access this account!"
       # redirect_back_or_default home_url
     end
@@ -31,7 +33,7 @@ class UsersController < ApplicationController
   end
   
   make_resourceful do
-    actions :index, :show, :new, :create, :edit, :update
+    actions :index, :show, :new, :create, :edit
     
     # before :show do
     #       if current_user.is_admin?
@@ -46,23 +48,47 @@ class UsersController < ApplicationController
     #       end
     #     end
     
-    before :update do
-      if @current_user.is_admin? && current_object != @current_user
-        params[:user][:password] = params[:user][:password_confirmation] = nil
-      end
-    end
-    
-    before :show, :edit, :update, :destroy do
-      if !current_object
+    before :show, :edit, :destroy do
+      if !@current_object
+        flash[:error] = "You cannot access this account!"
         redirect_to home_url
       end
     end
       
+    before :update do
+      if current_object && @current_user.is_admin? && current_object != @current_user
+        params[:user][:password] = params[:user][:password_confirmation] = nil
+      end
+    end
     
     after :create_fails, :update_fails do
       flash[:error] = flash[:notice] = ""
     end
     
+  end
+  
+  def update
+    if !current_object
+      flash[:error] = "You cannot access this account!"
+      redirect_to home_url
+    end
+    
+    @user = current_object
+    if @user && @current_user.is_admin? && @user != @current_user
+      params[:user][:password] = params[:user][:password_confirmation] = nil
+    end
+    
+    respond_to do |format|
+      if @user.update_attributes(params[:user])
+        flash[:notice] = "This User has been updated successfully!"
+        format.html { redirect_to(user_url(@user)) }
+        format.xml  { head :ok }
+      else
+        format.html { render :action => "edit" }
+        format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
+      end
+    end
+      
   end
   
   def destroy
