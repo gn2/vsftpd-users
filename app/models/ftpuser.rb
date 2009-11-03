@@ -33,14 +33,15 @@ class Ftpuser < ActiveRecord::Base
     transitions :to => :inactive, :from => :active
   end
   
-  # def users_logger
-  #   @@users_logger ||= Logger.new("#{RAILS_ROOT}/log/users.log")
-  # end
-  # users_logger.info("Change password")
+
   
   def update_password(params)
-    @changed_password = true
-    update_attributes(:password => params[:password], :password_confirmation => params[:password_confirmation])
+    if !params[:password].blank? && update_attributes(:password => params[:password], :password_confirmation => params[:password_confirmation])
+      @changed_password = true
+      return true
+    else
+      return false
+    end
   end
 
   # Some methods used by observers

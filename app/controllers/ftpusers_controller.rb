@@ -78,7 +78,8 @@ class FtpusersController < ApplicationController
   def require_authorized_user
     ftpuser = Ftpuser.find(params[:id])
     if !ftpuser || (!ftpuser.users.exists?(current_user) && !current_user.is_admin?)
-      flash[:notice] = "You cannot access this FTP account"
+      flash[:error] = "You cannot access this FTP account"
+      users_logger.info("#{Time.now} -- #{current_user.login}: Tried to access an unauthorized FTP User (#{request.request_uri})")
       redirect_to ftpusers_url
     end
   end

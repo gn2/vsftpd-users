@@ -51,6 +51,7 @@ class UsersController < ApplicationController
     before :show, :edit, :destroy do
       if !@current_object
         flash[:error] = "You cannot access this account!"
+        users_logger.info("#{Time.now} -- #{current_user.login}: Tried to access an unauthorized account (#{request.request_uri})")
         redirect_to home_url
       end
     end
@@ -70,6 +71,7 @@ class UsersController < ApplicationController
   def update
     if !current_object
       flash[:error] = "You cannot access this account!"
+      users_logger.info("#{Time.now} -- #{current_user.login}: Tried to access an unauthorized account (#{request.request_uri})")
       redirect_to home_url
     end
     
@@ -98,6 +100,7 @@ class UsersController < ApplicationController
       flash[:notice] = "This User has been deleted successfully!"
     else
       flash[:error] = "You cannot delete your own account!"
+      users_logger.info("#{Time.now} -- #{current_user.login}: Tried to delete his own account (#{request.request_uri})")
     end
 
     respond_to do |format|
@@ -111,6 +114,7 @@ class UsersController < ApplicationController
       flash[:notice] = "This User has been activated successfully!"
     else
       flash[:error] = "You cannot update your own state!"
+      users_logger.info("#{Time.now} -- #{current_user.login}: Tried to update his own account (#{request.request_uri})")
     end
     redirect_to user_path(current_object)
   end
@@ -121,6 +125,7 @@ class UsersController < ApplicationController
       flash[:notice] = "This User has been inactivated successfully!"
     else
       flash[:error] = "You cannot update your own state!"
+      users_logger.info("#{Time.now} -- #{current_user.login}: Tried to update his own state (#{request.request_uri})")
     end
     redirect_to user_path(current_object)
   end
@@ -131,6 +136,7 @@ class UsersController < ApplicationController
       flash[:notice] = "This User has been banned successfully!"
     else
       flash[:error] = "You cannot update your own state!"
+      users_logger.info("#{Time.now} -- #{current_user.login}: Tried to update his own state (#{request.request_uri})")
     end
     redirect_to user_path(current_object)
   end
@@ -196,6 +202,7 @@ class UsersController < ApplicationController
         flash[:notice] = "This User is not an administrator anymore!"
       else
         flash[:error] = "You cannot update your own rights!"
+        users_logger.info("#{Time.now} -- #{current_user.login}: Tried to update his own rights (#{request.request_uri})")
       end
     else
       flash[:error] = "This User is not an administrator!"
@@ -210,6 +217,7 @@ class UsersController < ApplicationController
         flash[:notice] = "This User is an administrator from now on!"
       else
         flash[:error] = "You cannot update your own rights!"
+        users_logger.info("#{Time.now} -- #{current_user.login}: Tried to update his own rights (#{request.request_uri})")
       end
     else
       flash[:error] = "This User is already an administrator!"

@@ -24,6 +24,7 @@ class ApplicationController < ActionController::Base
       unless current_user
         store_location
         flash[:error] = "You must be logged in to access this page"
+        users_logger.info("#{Time.now} -- A guest: Tried to do something illegal (#{request.request_uri})")
         redirect_to new_user_session_url
         return false
       end
@@ -42,6 +43,7 @@ class ApplicationController < ActionController::Base
       if current_user && !current_user.is_admin?
         store_location
         flash[:error] = "You must be logged out to access this page"
+        users_logger.info("#{Time.now} -- #{current_user.login}: Tried to do something illegal (#{request.request_uri})")
         redirect_to home_url
         return false
       end
@@ -60,9 +62,17 @@ class ApplicationController < ActionController::Base
       unless current_user && current_user.is_admin?
         store_location
         flash[:error] = "You must be an administrator to access this page"
+        if current_user
+          users_logger.info("#{Time.now} -- #{current_user.login}: Tried to do something illegal (#{request.request_uri})")
+        else
+          users_logger.info("#{Time.now} -- A guest: Tried to do something illegal (#{request.request_uri})")
+        end
         redirect_to home_path
         return false
       end
     end
-  
+    
+    def users_logger
+      @@users_logger ||= Logger.new("#{RAILS_ROOT}/log/users.log")
+    end
 end
