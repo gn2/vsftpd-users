@@ -31,7 +31,7 @@ set :ssh_options, { :forward_agent => true }
 namespace :deploy do
   desc "Link in some stuff" 
   task :after_symlink do
-    # run "ln -sf #{shared_path}/config/database.yml #{current_path}/config/database.yml"
+    run "ln -sf #{shared_path}/config/database.yml #{current_path}/config/database.yml"
   end
   
   [:start, :stop].each do |t|
